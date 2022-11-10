@@ -10,6 +10,7 @@ header ("Cache-Control: no-cache, must-revalidate ");
 // Ubicación del Proyecto
 $PROYECTO ='PWD/Slash-14';
 $ROOT =$_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
+$ROOT = "/export/home/gustavo.oliveros/public_html_lamptec/Slash-14/";
 include_once($ROOT.'Util/funciones.php');
 $GLOBALS['ROOT']=$ROOT;
 

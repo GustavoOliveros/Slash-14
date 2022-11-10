@@ -16,14 +16,11 @@ class Menu extends BaseDatos{
      */
     public function __construct()
     {
-        $objMenu = new Menu();
-        $objMenu->setId(-1); 
-
         parent::__construct();
         $this->id = -1;
         $this->nombre = "";
         $this->descripcion = "";
-        $this->objMenuPadre = $objMenu;
+        $this->objMenuPadre = "";
         $this->deshabilitado = "";
     }
 
@@ -99,7 +96,7 @@ class Menu extends BaseDatos{
         if($this->Iniciar()){
             if($this->Ejecutar($consulta)){
                 if($fila = $this->Registro()){
-                    $objMenu = $this->getObjMenuPadre();
+                    $objMenu = new Menu;
                     if($fila["idpadre"] != -1){
                         $objMenu->buscar($fila["idpadre"]);
                     }

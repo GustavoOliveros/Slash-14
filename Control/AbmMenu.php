@@ -1,21 +1,25 @@
 <?php
-class AbmRol{
-    //Espera como parametro un arreglo asociativo donde las claves coinciden con las variables instancias del objeto
+class AbmMenu{
+    //Espera como parametro un arreglo asociativo donde las claves coinciden con los uspasss de las variables instancias del objeto
     
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto
      * @param array $param
-     * @return Rol|null
+     * @return Menu|null
      */
     private function cargarObjeto($param){
         $obj = null;
 
         if(
-            array_key_exists('rolDescripcion',$param)
+            array_key_exists('id',$param)
+            and array_key_exists('nombre',$param)
+            and array_key_exists('descripcion', $param)
+            and array_key_exists('idpadre', $param)
+            and array_key_exists('deshabilitado', $param)
         ){
-            $obj = new Rol();
+            $obj = new Menu();
         
-            $obj->cargar(null, $param["rolDescripcion"]);
+            $obj->cargar(null, $param["nombre"], $param["descripcion"], $param["idpadre"],$param["deshabilitado"]);
         }
         return $obj;
     }
@@ -23,13 +27,13 @@ class AbmRol{
     /**
      * Espera como parametro un arreglo asociativo donde las claves coinciden con los nombres de las variables instancias del objeto que son claves
      * @param array $param
-     * @return Rol|null
+     * @return Menu|null
      */
     private function cargarObjetoConClave($param){
         $obj = null;
 
-        if(isset($param['id'])){
-            $obj = new Rol();
+        if(isset($param['id']) ){
+            $obj = new Menu();
             $obj->buscar($param["id"]);
         }
         return $obj;
@@ -57,10 +61,12 @@ class AbmRol{
         $resp = array();
         $elObjtTabla = $this->cargarObjeto($param);
 
+        echo "si";
         if ($elObjtTabla!=null and $elObjtTabla->insertar()){
             $resp = array('resultado'=> true,'error'=>'', 'obj' => $elObjtTabla);
         }else {
-            $resp = array('resultado'=> false,'error'=> $elObjtTabla->getmensajeoperacion());
+            $resp = array('resultado'=> false,'error'=> $elObjtTabla->getMensajeOperacion());
+            echo "si";
         }
     
         return $resp;
@@ -92,6 +98,7 @@ class AbmRol{
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjeto($param);
+            $elObjtTabla->setId($param["id"]);
             if($elObjtTabla!=null and $elObjtTabla->modificar()){
                 $resp = true;
             }
@@ -106,8 +113,8 @@ class AbmRol{
      */
     public function buscar($param){
         $where = " true ";
-        $claves = ["id","rolDescripcion"];
-        $db = ["idrol", "roldescripcion"];
+        $claves = ["id","nombre","descripcion","idpadre","deshabilitado"];
+        $db = ["idmenu", "menombre", "medescripcion", "idpadre", "medeshabilitado"];
 
 
         if ($param<>null){
@@ -118,52 +125,10 @@ class AbmRol{
             }
         }
 
-        $obj = new Rol();
+        $obj = new Menu();
         $arreglo = $obj->listar($where);
         return $arreglo;
     }
-
-    /**
-     * Da el permiso a un rol a acceder a una página
-     * @param array
-     * @return boolean
-     */
-    public function darPermiso($param){
-        $resp = false;
-
-        if($this->seteadosCamposClaves($param) && isset($param["idmenu"])){
-            $objUsuarioRol = new MenuRol();
-            $objUsuarioRol->cargarClaves($param["id"], $param["idmenu"]);
-            if($objUsuarioRol->insertar()){
-                $resp = true;
-            }
-        }
-
-        return $resp;
-    }
-
-    /**
-     * Da el permiso a un rol a acceder a una página
-     * @param array
-     * @return boolean
-     */
-    public function quitarPermiso($param){
-        $resp = false;
-
-        if($this->seteadosCamposClaves($param) && isset($param["idmenu"])){
-            $objUsuarioRol = new MenuRol();
-            $objUsuarioRol->cargarClaves($param["id"], $param["idmenu"]);
-            if($objUsuarioRol->eliminar()){
-                $resp = true;
-            }
-        }
-
-        return $resp;
-    }
-
-
-
-
 }
 
 
