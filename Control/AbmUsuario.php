@@ -133,7 +133,7 @@ class AbmUsuario{
      * @return boolean
      */
     public function darRol($param){
-       $resp = false;
+        $resp = false;
 
         if($this->seteadosCamposClaves($param) && isset($param["idrol"])){
             $objUsuarioRol = new UsuarioRol();
