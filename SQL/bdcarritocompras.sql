@@ -32,6 +32,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `compra`
 --
 
+DROP TABLE IF EXISTS `compra`;
 CREATE TABLE `compra` (
   `idcompra` bigint(20) NOT NULL,
   `cofecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -44,6 +45,7 @@ CREATE TABLE `compra` (
 -- Estructura de tabla para la tabla `compraestado`
 --
 
+DROP TABLE IF EXISTS `compraestado`;
 CREATE TABLE `compraestado` (
   `idcompraestado` bigint(20) UNSIGNED NOT NULL,
   `idcompra` bigint(11) NOT NULL,
@@ -58,6 +60,7 @@ CREATE TABLE `compraestado` (
 -- Estructura de tabla para la tabla `compraestadotipo`
 --
 
+DROP TABLE IF EXISTS `compraestadotipo`;
 CREATE TABLE `compraestadotipo` (
   `idcompraestadotipo` int(11) NOT NULL,
   `cetdescripcion` varchar(50) NOT NULL,
@@ -80,6 +83,7 @@ INSERT INTO `compraestadotipo` (`idcompraestadotipo`, `cetdescripcion`, `cetdeta
 -- Estructura de tabla para la tabla `compraitem`
 --
 
+DROP TABLE IF EXISTS `compraitem`;
 CREATE TABLE `compraitem` (
   `idcompraitem` bigint(20) UNSIGNED NOT NULL,
   `idproducto` bigint(20) NOT NULL,
@@ -93,6 +97,7 @@ CREATE TABLE `compraitem` (
 -- Estructura de tabla para la tabla `menu`
 --
 
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `idmenu` bigint(20) NOT NULL,
   `menombre` varchar(50) NOT NULL COMMENT 'Nombre del item del menu',
@@ -118,6 +123,7 @@ INSERT INTO `menu` (`idmenu`, `menombre`, `medescripcion`, `idpadre`, `medeshabi
 -- Estructura de tabla para la tabla `menurol`
 --
 
+DROP TABLE IF EXISTS `menurol`;
 CREATE TABLE `menurol` (
   `idmenu` bigint(20) NOT NULL,
   `idrol` bigint(20) NOT NULL
@@ -129,6 +135,7 @@ CREATE TABLE `menurol` (
 -- Estructura de tabla para la tabla `producto`
 --
 
+DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL,
   `pronombre` int(11) NOT NULL,
@@ -142,6 +149,7 @@ CREATE TABLE `producto` (
 -- Estructura de tabla para la tabla `rol`
 --
 
+DROP TABLE IF EXISTS `rol`;
 CREATE TABLE `rol` (
   `idrol` bigint(20) NOT NULL,
   `roldescripcion` varchar(50) NOT NULL
@@ -153,6 +161,7 @@ CREATE TABLE `rol` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idusuario` bigint(20) NOT NULL,
   `usnombre` varchar(50) NOT NULL,
@@ -167,6 +176,7 @@ CREATE TABLE `usuario` (
 -- Estructura de tabla para la tabla `usuariorol`
 --
 
+DROP TABLE IF EXISTS `usuariorol`;
 CREATE TABLE `usuariorol` (
   `idusuario` bigint(20) NOT NULL,
   `idrol` bigint(20) NOT NULL
