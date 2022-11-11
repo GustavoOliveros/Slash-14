@@ -1,66 +1,184 @@
 <?php
-$titulo = "test";
+$titulo = "ABM Menu";
 include_once "../Estructura/headerSeguro.php";
 $objControl = new AbmMenu();
 $colecMenu = $objControl->buscar(null);
-
-$combo = '<select class="easyui-combobox"  id="idpadre"  name="idpadre" label="Submenu de:" labelPosition="top" style="width:90%;">
-<option></option>';
-foreach ($colecMenu as $objMenu) {
-    $combo .= '<option value="' . $objMenu->getId() . '">' . $objMenu->getNombre() . ':' . $objMenu->getDescripcion() . '</option>';
-}
-$combo .= '</select>';
-
 ?>
 
 <!-- Contenido -->
-<h2>ABM - Menu</h2>
-<p>Seleccione la acci&oacute;n que desea realizar.</p>
+<main class="col-12 my-3 max mx-auto">
+    <!-- TABLA -->
+    <h2>ABM - Menu</h2>
+    <button class="btn btn-primary my-2" onclick="newMenu();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+        </svg>
+        Nuevo
+    </button>
+    <button class="btn btn-secondary my-2" onclick="recargar();">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+        </svg>
+    </button>
+    <table class="table table-striped table-bordered nowrap" id="tabla">
+        <thead class="bg-dark text-light">
+            <th field="id">Id</th>
+            <th field="nombre">Nombre</th>
+            <th field="descripcion">Descripcion</th>
+            <th field="padre">Padre</th>
+            <th field="deshabilitado">Estado</th>
+            <th field="accion">Acciones</th>
+        </thead>
+        <tbody>
 
-<table id="dg" title="Administrador de item menu" class="easyui-datagrid" style="width:700px;height:250px" url="accion/listarMenu.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
-    <thead>
-        <tr>
-            <th field="id" width="50">ID</th>
-            <th field="nombre" width="50">Nombre</th>
-            <th field="descripcion" width="50">Descripci&oacute;n</th>
-            <th field="idpadre" width="50">Submenu De:</th>
-            <th field="deshabilitado" width="50">Deshabilitado</th>
-        </tr>
-    </thead>
-</table>
-<div id="toolbar">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMenu()">Nuevo Menu </a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()">Editar Menu</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyMenu()">Baja Menu</a>
-</div>
+        </tbody>
+    </table>
 
-<div id="dlg" class="easyui-dialog" style="width:600px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-    <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-        <h3>Menu Informacion</h3>
-        <div style="margin-bottom:10px">
-
-
-            <input name="nombre" id="nombre" class="easyui-textbox" required="true" label="Nombre:" style="width:100%">
+    <!-- MODAL -->
+    <div class="modal fade" id="dlg" tabindex="-1" aria-labelledby="dlg" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="fw-5 text-center m-3" id="title"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="needs-validation" method="post" novalidate>
+                    <div class="modal-body">
+                        <input type="text" name="id" id="id" hidden>
+                        <div class="col-12 mb-2">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" pattern="/^[A-Z]+$/i" required>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label for="nombre" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" name="descripcion" id="descripcion" pattern="/^[A-Z]+$/i" required>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label for="nombre" class="form-label">Padre</label>
+                            <select name="" id=""></select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary">
+                        <input type="button" value="Cancelar" class="btn btn-danger" onclick="$('#dlg').modal('hide');">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div style="margin-bottom:10px">
-            <input name="descripcion" id="descripcion" class="easyui-textbox" required="true" label="Descripcion:" style="width:100%">
-        </div>
-        <div style="margin-bottom:10px">
-            <?php
-            echo $combo;
-            ?>
+</main>
 
-        </div>
-        <div style="margin-bottom:10px">
-            <input class="easyui-checkbox" name="deshabilitado" value="deshabilitado" label="Des-Habilitar:">
-        </div>
-    </form>
-</div>
-<div id="dlg-buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveMenu()" style="width:90px">Aceptar</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
-</div>
-<script src="../js/menu.js"></script>
+
+<script>
+    var url;
+
+    $(document).ready(function() {
+        var table = $("#tabla").DataTable({
+            "ajax": {
+                "url": "accion/listarMenu.php",
+                "dataSrc": ""
+            },
+            "columns": [{
+                    data: "id"
+                },
+                {
+                    data: "nombre"
+                },
+                {
+                    data: "descripcion"
+                },
+                {
+                    data: "padre"
+                },
+                {
+                    data: "deshabilitado"
+                },
+                {
+                    data: "accion"
+                }
+            ]
+        });
+    });
+
+    function recargar() {
+        $("#tabla").DataTable().ajax.reload();
+    }
+
+
+    function newMenu() {
+        $("#title").html("Nuevo");
+        $('#dlg').modal('show');
+        $('#form').trigger('reset');
+        url = 'accion/altaMenu.php';
+    }
+
+    function editMenu() {
+        $('#tabla tbody').on('click', 'button', function() {
+            var data = $("#tabla").DataTable().row($(this).parents('tr')).data();
+
+            if(data != null){
+                $("#title").html("Editar");
+                $('#dlg').modal('show');
+                $('#form').trigger('reset');
+                
+                $( "#id" ).val( data["id"] );
+                $( "#nombre" ).val( data["nombre"] );
+                $( "#descripcion" ).val( data["descripcion"] );
+                $( "#nombre" ).val( data["nombre"] );
+            }
+        });
+    }
+
+    function saveMenu() {
+        $('#fm').form('submit', {
+            url: 'accion/altaMenu.php',
+            onSubmit: function() {
+                return $(this).form('validate');
+            },
+            success: function(result) {
+                console.log(result);
+                var result = eval('(' + result + ')');
+
+                if (!result.respuesta) {
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                } else {
+
+                    $('#dlg').dialog('close');
+                    recargar();
+                }
+            }
+        });
+    }
+
+    function destroyMenu(id) {
+        $("#title").html("Eliminar - " + id);
+
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('Confirm', 'Seguro que desea eliminar el menu?', function(r) {
+                if (r) {
+                    $.post('accion/eliminarMenu.php?idmenu=' + row.idmenu, {
+                            idmenu: row.id
+                        },
+                        function(result) {
+                            if (result.respuesta) {
+
+                                $('#dg').datagrid('reload');
+                            } else {
+                                $.messager.show({
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                }
+            });
+        }
+    }
+</script>
 
 
 <?php

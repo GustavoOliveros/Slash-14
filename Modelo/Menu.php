@@ -20,7 +20,6 @@ class Menu extends BaseDatos{
         $this->id = -1;
         $this->nombre = "";
         $this->descripcion = "";
-        $this->objMenuPadre = "";
         $this->deshabilitado = "";
     }
 
@@ -97,7 +96,7 @@ class Menu extends BaseDatos{
             if($this->Ejecutar($consulta)){
                 if($fila = $this->Registro()){
                     $objMenu = new Menu;
-                    if($fila["idpadre"] != -1){
+                    if($fila["idpadre"] != null){
                         $objMenu->buscar($fila["idpadre"]);
                     }
 
@@ -135,11 +134,16 @@ class Menu extends BaseDatos{
                 $arreglo = [];
                 while($fila = $this->Registro()){
                     $objMenu = new Menu;
-                    if($fila["idpadre"] != -1){
-                        $objMenu->buscar($fila["idpadre"]);
-                    }else{
-                        $objMenu->setId(-1);
+                    $objMenuPadre = new Menu;
+                    if($fila["idpadre"] != NULL){
+                        $objMenuPadre->buscar($fila["idpadre"]);
                     }
+                    $objMenu->cargar(
+                        $fila["idmenu"],
+                        $fila["menombre"],
+                        $fila["medescripcion"],
+                        $objMenuPadre,
+                        $fila["medeshabilitado"]);
                     array_push($arreglo, $objMenu);
                 }
             }else{$this->setMensajeOperacion("menu->listar: ".$this->getError());}

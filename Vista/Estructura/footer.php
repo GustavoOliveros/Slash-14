@@ -10,9 +10,5 @@
     <p class="text-center text-muted">© 2022 - Slash</p>
   </footer>
 </div>
-<script type="text/javascript" src="../lib/bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../js/main.js"></script>
-<script type="text/javascript" src="../js/jquery-easyui-1.6.6/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery-easyui-1.6.6/jquery.easyui.min.js"></script>
 </body>
 </html>

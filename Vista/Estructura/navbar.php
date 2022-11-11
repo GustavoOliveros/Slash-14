@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse d-flex align-items-end justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inicioSesion">Iniciar sesión</button>
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inicioSesion">Iniciar sesión</button>
                 </li>
             </ul>
         </div>

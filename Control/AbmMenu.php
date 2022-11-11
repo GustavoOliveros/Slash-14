@@ -18,8 +18,13 @@ class AbmMenu{
             and array_key_exists('deshabilitado', $param)
         ){
             $obj = new Menu();
+            if($param["idpadre"] <> null){
+                $objPadre = new Menu();
+                $objPadre->buscar($param["idpadre"]);
+                $param["idpadre"] = $objPadre;
+            }
         
-            $obj->cargar(null, $param["nombre"], $param["descripcion"], $param["idpadre"],$param["deshabilitado"]);
+            $obj->cargar(null, $param["nombre"], $param["descripcion"], $param["idpadre"], $param["deshabilitado"]);
         }
         return $obj;
     }
@@ -127,6 +132,7 @@ class AbmMenu{
 
         $obj = new Menu();
         $arreglo = $obj->listar($where);
+
         return $arreglo;
     }
 }
