@@ -43,7 +43,7 @@ $colecMenu = $objControl->buscar(null);
                     <h1 class="fw-5 text-center m-3" id="title"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="needs-validation" method="post" novalidate>
+                <form class="needs-validation" id="form-abm" method="post">
                     <div class="modal-body">
                         <input type="text" name="id" id="id" hidden>
                         <div class="col-12 mb-2">
@@ -56,11 +56,13 @@ $colecMenu = $objControl->buscar(null);
                         </div>
                         <div class="col-12 mb-2">
                             <label for="nombre" class="form-label">Padre</label>
-                            <select name="" id=""></select>
+                            <select name="idpadre" id="idpadre" class="form-select" required>
+                                <option value="">Seleccione</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary">
+                        <input type="submit" class="btn btn-primary" onclick="saveMenu();">
                         <input type="button" value="Cancelar" class="btn btn-danger" onclick="$('#dlg').modal('hide');">
                     </div>
                 </form>
@@ -100,56 +102,66 @@ $colecMenu = $objControl->buscar(null);
         });
     });
 
+    function cargarSelectPadre(){
+        var ids = $("#tabla").DataTable().column(0).data();
+        var nombres = $("#tabla").DataTable().column(1).data();
+        var html;
+
+        $("#idpadre").append(
+            function(){
+                for(var i = 0; i < ids.length; i++){
+                    
+                }
+            }
+        );
+    }
+
     function recargar() {
         $("#tabla").DataTable().ajax.reload();
     }
 
-
     function newMenu() {
+        cargarSelectPadre();
         $("#title").html("Nuevo");
         $('#dlg').modal('show');
-        $('#form').trigger('reset');
+        $('#form-abm').trigger('reset');
         url = 'accion/altaMenu.php';
     }
 
     function editMenu() {
+        cargarSelectPadre();
         $('#tabla tbody').on('click', 'button', function() {
             var data = $("#tabla").DataTable().row($(this).parents('tr')).data();
 
-            if(data != null){
+            if (data != null) {
                 $("#title").html("Editar");
                 $('#dlg').modal('show');
-                $('#form').trigger('reset');
-                
-                $( "#id" ).val( data["id"] );
-                $( "#nombre" ).val( data["nombre"] );
-                $( "#descripcion" ).val( data["descripcion"] );
-                $( "#nombre" ).val( data["nombre"] );
+                $('#form-abm').trigger('reset');
+
+                $("#id").val(data["id"]);
+                $("#nombre").val(data["nombre"]);
+                $("#descripcion").val(data["descripcion"]);
+                $("#nombre").val(data["nombre"]);
+
+                url = 'accion/modificarMenu.php';
             }
         });
     }
 
     function saveMenu() {
-        $('#fm').form('submit', {
-            url: 'accion/altaMenu.php',
-            onSubmit: function() {
-                return $(this).form('validate');
-            },
-            success: function(result) {
-                console.log(result);
-                var result = eval('(' + result + ')');
-
-                if (!result.respuesta) {
-                    $.messager.show({
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                } else {
-
-                    $('#dlg').dialog('close');
+        $('#form-abm').on('submit', function(e) {
+            e.preventDefault();
+            // Ajax
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: $(this).serialize(),
+                success: function(result) {
+                    $('#dlg').modal('hide');
+                    $('#form-abm').trigger("reset");
                     recargar();
                 }
-            }
+            })
         });
     }
 

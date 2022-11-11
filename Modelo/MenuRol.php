@@ -173,6 +173,17 @@ class MenuRol extends BaseDatos{
         return $seConcreto;
     }
 
+    /**
+     * Verifica si tiene un permiso
+     * @param int $idUsuario
+     * @param string $pagEnlace
+     * @return boolean
+     */
+    public function verificarPermiso($idUsuario, $pagEnlace){
+        $seConcreto = false;
+        $consulta = "SELECT ";
+    }
+
 
 }
 

@@ -181,9 +181,14 @@ class Menu extends BaseDatos{
      */
     public function modificar(){
         $seConcreto = false;
+        $padre = ",";
 
-        $consulta = "UPDATE menu SET menombre = '". $this->getNombre() ."', medescripcion = '". $this->getDescripcion() ."',
-        idpadre = '". $this->getObjMenuPadre()->getId() ."', medeshabilitado = '".$this->getDeshabilitado()."'
+        if($this->getObjMenuPadre() != null){
+            $padre = ",idpadre = '". $this->getObjMenuPadre()->getId() . "',";
+        }
+
+        $consulta = "UPDATE menu SET menombre = '". $this->getNombre() ."', medescripcion = '". $this->getDescripcion() ."'
+        ". $padre ." medeshabilitado = '".$this->getDeshabilitado()."'
         WHERE idmenu = '" . $this->getId(). "'";
 
         if($this->Iniciar()){

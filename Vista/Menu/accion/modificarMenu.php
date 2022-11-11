@@ -2,22 +2,28 @@
 include_once "../../../configuracion.php";
 $data = data_submitted();
 $respuesta = false;
-if (isset($data['idmenu'])){
+
+if (isset($data['id'])){
     $objC = new AbmMenu();
+
+    $data["deshabilitado"] = "0000-00-00 00:00:00";
+    
+    if(!isset($data["idpadre"])){
+        $data["idpadre"] = null;
+    }
+ 
     $respuesta = $objC->modificacion($data);
     
     if (!$respuesta){
+        $sms_error = " La accion MODIFICACION no pudo concretarse";
+    }
+}
 
-        $sms_error = " La accion  MODIFICACION No pudo concretarse";
-        
-    }else $respuesta =true;
-    
-}
 $retorno['respuesta'] = $respuesta;
-if (isset($mensaje)){
-    
+
+if (isset($sms_error)){
     $retorno['errorMsg']=$sms_error;
-    
 }
+
 echo json_encode($retorno);
 ?>

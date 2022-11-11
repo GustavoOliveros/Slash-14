@@ -66,12 +66,10 @@ class AbmMenu{
         $resp = array();
         $elObjtTabla = $this->cargarObjeto($param);
 
-        echo "si";
         if ($elObjtTabla!=null and $elObjtTabla->insertar()){
             $resp = array('resultado'=> true,'error'=>'', 'obj' => $elObjtTabla);
         }else {
             $resp = array('resultado'=> false,'error'=> $elObjtTabla->getMensajeOperacion());
-            echo "si";
         }
     
         return $resp;
