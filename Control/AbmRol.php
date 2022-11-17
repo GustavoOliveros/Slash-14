@@ -11,11 +11,11 @@ class AbmRol{
         $obj = null;
 
         if(
-            array_key_exists('rolDescripcion',$param)
+            array_key_exists('roldescripcion',$param)
         ){
             $obj = new Rol();
         
-            $obj->cargar(null, $param["rolDescripcion"]);
+            $obj->cargar(null, $param["roldescripcion"]);
         }
         return $obj;
     }
@@ -60,7 +60,7 @@ class AbmRol{
         if ($elObjtTabla!=null and $elObjtTabla->insertar()){
             $resp = array('resultado'=> true,'error'=>'', 'obj' => $elObjtTabla);
         }else {
-            $resp = array('resultado'=> false,'error'=> $elObjtTabla->getmensajeoperacion());
+            $resp = array('resultado'=> false,'error'=> $elObjtTabla->getMensajeOperacion());
         }
     
         return $resp;
@@ -92,6 +92,7 @@ class AbmRol{
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjeto($param);
+            $elObjtTabla->setId($param["id"]);
             if($elObjtTabla!=null and $elObjtTabla->modificar()){
                 $resp = true;
             }
@@ -106,7 +107,7 @@ class AbmRol{
      */
     public function buscar($param){
         $where = " true ";
-        $claves = ["id","rolDescripcion"];
+        $claves = ["id","roldescripcion"];
         $db = ["idrol", "roldescripcion"];
 
 
@@ -132,9 +133,9 @@ class AbmRol{
         $resp = false;
 
         if($this->seteadosCamposClaves($param) && isset($param["idmenu"])){
-            $objUsuarioRol = new MenuRol();
-            $objUsuarioRol->cargarClaves($param["id"], $param["idmenu"]);
-            if($objUsuarioRol->insertar()){
+            $objMenuRol = new MenuRol();
+            $objMenuRol->cargarClaves($param["id"], $param["idmenu"]);
+            if($objMenuRol->insertar()){
                 $resp = true;
             }
         }
@@ -151,15 +152,40 @@ class AbmRol{
         $resp = false;
 
         if($this->seteadosCamposClaves($param) && isset($param["idmenu"])){
-            $objUsuarioRol = new MenuRol();
-            $objUsuarioRol->cargarClaves($param["id"], $param["idmenu"]);
-            if($objUsuarioRol->eliminar()){
+            $objMenuRol = new MenuRol();
+            $objMenuRol->cargarClaves($param["id"], $param["idmenu"]);
+            if($objMenuRol->eliminar()){
                 $resp = true;
             }
         }
 
         return $resp;
     }
+
+    /**
+     * Retorna todos sus obj menu a los que puede acceder
+     * @param array $param
+     * @return array|null
+     */
+    public function buscarPermisos($param){
+        $where = " true ";
+        $claves = ["id"];
+        $clavesDB = ["idrol"];
+
+
+        if ($param<>null){
+            for($i = 0; $i < count($claves); $i++){
+                if(isset($param[$claves[$i]])){
+                    $where.= " and " . $clavesDB[$i] . " = '". $param[$claves[$i]]  ."'";
+                }
+            }
+        }
+
+        $obj = new MenuRol();
+        $arreglo = $obj->listar($where);
+        return $arreglo;
+    }
+
 
 
 

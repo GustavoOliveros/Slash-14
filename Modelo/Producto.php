@@ -6,6 +6,9 @@ class Producto extends BaseDatos{
     private $cantStock;
     private $mensajeOperacion;
 
+    // precio
+    // imagen
+
     /////////////////////////////
     // CONSTRUCTOR //
     /////////////////////////////

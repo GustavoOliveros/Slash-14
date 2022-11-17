@@ -162,7 +162,7 @@ class UsuarioRol extends BaseDatos{
         $seConcreto = false;
 
         $consulta = "DELETE FROM usuariorol WHERE idusuario = '" . $this->getObjUsuario()->getId() ."'
-        AND idrol = '" . $this->getObjUsuario()->getId() . "'";
+        AND idrol = '" . $this->getObjRol()->getId() . "'";
 
         if($this->Iniciar()){
             if($this->Ejecutar($consulta)){

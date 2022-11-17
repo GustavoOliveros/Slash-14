@@ -156,7 +156,7 @@ class Usuario extends BaseDatos{
         $resp = null;
         $resultado = false;
 
-        $consulta = "INSERT INTO usuario(usnombre, uspass, usmail)
+        $consulta = "INSERT INTO usuario(usnombre, uspass, usmail, usdeshabilitado)
         VALUES ('". $this->getNombre()."','".$this->getPass()."','".$this->getMail()."',
         '". $this->getDeshabilitado() . "');";
 
@@ -177,34 +177,23 @@ class Usuario extends BaseDatos{
      */
     public function modificar(){
         $seConcreto = false;
+        $pass = "";
 
-        $consulta = "UPDATE usuario SET usnombre = '" . $this->getNombre() . "',
+        
+        if($this->getPass() != NULL && $this->getPass() != "" && $this->getPass() != "null"){
+            $pass  = "uspass = '" . $this->getPass() . "',";
+        }
+        
+
+        $consulta = "UPDATE usuario SET usnombre = '" . $this->getNombre() . "',". $pass. "
         usmail = '" . $this->getMail() . "', usdeshabilitado = ". $this->getDeshabilitado() ." WHERE idusuario = '" . $this->getId(). "'";
+
 
         if($this->Iniciar()){
             if($this->Ejecutar($consulta)){
                 $seConcreto = true;
             }else{$this->setMensajeOperacion("usuario->modificar: ".$this->getError());}
         }else{$this->setMensajeOperacion("usuario->modificar: ".$this->getError());}
-
-        return $seConcreto;
-    }
-
-    /**
-     * Modifica la contraseña de un usuario
-     * @return boolean true si se concretó, false caso contrario
-     */
-    public function modificarPass(){
-        $seConcreto = false;
-
-        $consulta = "UPDATE usuario SET uspass = '" . $this->getPass() . "'
-        WHERE idusuario = '" . $this->getId(). "'";
-
-        if($this->Iniciar()){
-            if($this->Ejecutar($consulta)){
-                $seConcreto = true;
-            }else{$this->setMensajeOperacion("usuario->modificarPass: ".$this->getError());}
-        }else{$this->setMensajeOperacion("usuario->modificarPass: ".$this->getError());}
 
         return $seConcreto;
     }

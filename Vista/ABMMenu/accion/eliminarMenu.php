@@ -6,16 +6,11 @@ $respuesta = false;
 if (isset($data['id'])){
     $objC = new AbmMenu();
 
-    $data["deshabilitado"] = "0000-00-00 00:00:00";
-    
-    if(!isset($data["idpadre"])){
-        $data["idpadre"] = null;
-    }
  
-    $respuesta = $objC->modificacion($data);
+    $respuesta = $objC->baja($data);
     
     if (!$respuesta){
-        $sms_error = " La accion MODIFICACION no pudo concretarse";
+        $sms_error = " La baja no pudo concretarse";
     }
 }
 

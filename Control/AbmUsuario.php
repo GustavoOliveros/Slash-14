@@ -78,7 +78,10 @@ class AbmUsuario{
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjetoConClave($param);
-            if ($elObjtTabla!=null and $elObjtTabla->eliminar()){
+
+            $elObjtTabla->setDeshabilitado("NOW()");
+
+            if ($elObjtTabla!=null and $elObjtTabla->modificar()){
                 $resp = true;
             }
         }
@@ -125,6 +128,25 @@ class AbmUsuario{
         $obj = new Usuario();
         $arreglo = $obj->listar($where);
         return $arreglo;
+    }
+
+    /**
+     * Revisa si ya existe un mismo mail o usuario en la db
+     * @param array $param
+     * @return boolean
+     */
+    public function revisar($param){
+        $resp = false;
+
+        if(isset($param["nombre"]) && isset($param["mail"])){
+            $objM = new Usuario();
+            $resultado = $objM->listar("usnombre = '" . $param["nombre"] . "' OR usmail = '" . $param["mail"] . "'");
+            if(isset($resultado) && count($resultado) > 0 && $resultado[0]->getId() != $param["id"]){
+                $resp = true;
+            }
+        }
+
+        return $resp;
     }
 
     /**

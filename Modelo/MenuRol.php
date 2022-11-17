@@ -123,7 +123,7 @@ class MenuRol extends BaseDatos{
             if($this->Ejecutar($consulta)){
                 $arreglo = [];
                 while($fila = $this->Registro()){
-                    $objMenuRol = new menuRol();
+                    $objMenuRol = new MenuRol();
                     $objMenuRol->buscar($fila["idrol"], $fila["idmenu"]);
 
                     array_push($arreglo, $objMenuRol);
@@ -162,7 +162,7 @@ class MenuRol extends BaseDatos{
         $seConcreto = false;
 
         $consulta = "DELETE FROM menurol WHERE idmenu = '" . $this->getObjMenu()->getId() ."'
-        AND idrol = '" . $this->getObjMenu()->getId() . "'";
+        AND idrol = '" . $this->getObjRol()->getId() . "'";
 
         if($this->Iniciar()){
             if($this->Ejecutar($consulta)){

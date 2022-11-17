@@ -14,7 +14,6 @@ class AbmMenu{
             array_key_exists('id',$param)
             and array_key_exists('nombre',$param)
             and array_key_exists('descripcion', $param)
-            and array_key_exists('idpadre', $param)
             and array_key_exists('deshabilitado', $param)
         ){
             $obj = new Menu();
@@ -84,7 +83,10 @@ class AbmMenu{
         $resp = false;
         if ($this->seteadosCamposClaves($param)){
             $elObjtTabla = $this->cargarObjetoConClave($param);
-            if ($elObjtTabla!=null and $elObjtTabla->eliminar()){
+
+            $elObjtTabla->setDeshabilitado("NOW()");
+
+            if ($elObjtTabla!=null and $elObjtTabla->modificar()){
                 $resp = true;
             }
         }

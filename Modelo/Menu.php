@@ -96,8 +96,10 @@ class Menu extends BaseDatos{
             if($this->Ejecutar($consulta)){
                 if($fila = $this->Registro()){
                     $objMenu = new Menu;
-                    if($fila["idpadre"] != null){
-                        $objMenu->buscar($fila["idpadre"]);
+                    $objMenuPadre = null;
+                    if($fila["idpadre"] != NULL){
+                        $objMenuPadre = new Menu;
+                        $objMenuPadre->buscar($fila["idpadre"]);
                     }
 
                     $this->cargar(
@@ -134,8 +136,9 @@ class Menu extends BaseDatos{
                 $arreglo = [];
                 while($fila = $this->Registro()){
                     $objMenu = new Menu;
-                    $objMenuPadre = new Menu;
+                    $objMenuPadre = null;
                     if($fila["idpadre"] != NULL){
+                        $objMenuPadre = new Menu;
                         $objMenuPadre->buscar($fila["idpadre"]);
                     }
                     $objMenu->cargar(
@@ -159,17 +162,26 @@ class Menu extends BaseDatos{
     public function insertar(){
         $resp = null;
         $resultado = false;
+        $padre[0] = ",";
+        $padre[1] = ",";
 
-        $consulta = "INSERT INTO menu(menombre, medescripcion, idpadre, medeshabilitado)
-        VALUES ('" . $this->getNombre() . "', '". $this->getDescripcion() ."','". $this->getObjMenuPadre()->getId() ."',
+        if($this->getObjMenuPadre() != null && $this->getObjMenuPadre()->getId() != -1){
+            $padre[0] = ",idpadre,";
+            $padre[1] = ",idpadre = '". $this->getObjMenuPadre()->getId() . "',";
+        }
+
+        $consulta = "INSERT INTO menu(menombre, medescripcion". $padre[0] ."medeshabilitado)
+        VALUES ('" . $this->getNombre() . "', '". $this->getDescripcion() ."'". $padre[1] ."
         '". $this->getDeshabilitado() ."');";
+
+        echo $consulta;
 
         if($this->Iniciar()){
             $resp = $this->Ejecutar($consulta);
             if ($resp) {
                 $this->setId($resp);
                 $resultado = true;
-            }else{$this->setmensajeoperacion("menu->insertar: ".$this->getError());}
+            }else{$this->setMensajeOperacion("menu->insertar: ".$this->getError());}
         }else{$this->setMensajeOperacion("menu->insertar: ".$this->getError());}
 
         return $resultado;
@@ -183,12 +195,12 @@ class Menu extends BaseDatos{
         $seConcreto = false;
         $padre = ",";
 
-        if($this->getObjMenuPadre() != null){
+        if($this->getObjMenuPadre() != null && $this->getObjMenuPadre()->getId() != -1){
             $padre = ",idpadre = '". $this->getObjMenuPadre()->getId() . "',";
         }
 
         $consulta = "UPDATE menu SET menombre = '". $this->getNombre() ."', medescripcion = '". $this->getDescripcion() ."'
-        ". $padre ." medeshabilitado = '".$this->getDeshabilitado()."'
+        ". $padre ." medeshabilitado = ".$this->getDeshabilitado()."
         WHERE idmenu = '" . $this->getId(). "'";
 
         if($this->Iniciar()){

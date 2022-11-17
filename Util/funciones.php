@@ -32,7 +32,7 @@ function data_submitted() {
  */
 function mostrarError($contenidoError){
     return '
-        <div class="col-12 col-md-7 alert alert-danger m-3 p-3 mx-auto alert-dismissible fade show" role="alert">'.
+        <div class="col-12 alert alert-danger m-3 p-3 mx-auto alert-dismissible fade show" role="alert">'.
         $contenidoError .
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 }

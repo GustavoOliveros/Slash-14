@@ -40,7 +40,7 @@ class Session{
      */
     public function validar(){
         $resp = false;
-        if($this->activa() && isset($_SESSION["idusuario"]) && $this->tienePermiso()){
+        if($this->activa() && isset($_SESSION["idusuario"])){ // && $this->tienePermiso()
             $resp = true;
         }
 
