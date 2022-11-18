@@ -4,7 +4,8 @@ include_once "../../configuracion.php";
 
 // Sesión
 $session = new Session();
-if(!$session->validar()){
+$seguro = true;
+if(!$session->validar() || !$session->tienePermiso()){
     header("Location:../Home/index.php?error=1");
 }
 

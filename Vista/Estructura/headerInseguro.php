@@ -3,6 +3,7 @@
 include_once "../../configuracion.php";
 $session = new Session();
 $iniciada = false;
+$seguro = false;
 if($session->validar()){
     $iniciada = true;
 }

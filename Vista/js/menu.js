@@ -81,11 +81,6 @@ function cargarSelectPadre() {
 	for (var i = 0; i < ids.length; i++) {
 		html += '<option value="' + ids[i] + '">' + nombres[i] + "</option>";
 	}
-
-	// PROBLEMAS:
-	// PODER QUITAR PADRE
-	// NO PODER AUTO-SELECCIONARSE
-
 	$("#idpadre").html(html);
 }
 

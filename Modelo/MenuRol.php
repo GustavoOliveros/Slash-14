@@ -176,12 +176,26 @@ class MenuRol extends BaseDatos{
     /**
      * Verifica si tiene un permiso
      * @param int $idUsuario
-     * @param string $pagEnlace
+     * @param array $pagEnlace
      * @return boolean
      */
     public function verificarPermiso($idUsuario, $pagEnlace){
-        $seConcreto = false;
-        $consulta = "SELECT ";
+        $encontro = false;
+
+        $consulta = "SELECT idusuario, menurol.idrol, menu.idmenu, medescripcion FROM menurol
+        INNER JOIN usuariorol ON menurol.idrol = usuariorol.idrol
+        INNER JOIN menu ON menu.idmenu = menurol.idmenu
+        WHERE idusuario = ". $idUsuario ." AND medescripcion = '". $pagEnlace ."';";
+
+        if($this->Iniciar()){
+            if($this->Ejecutar($consulta)){
+                if($this->Registro()){
+                    $encontro = true;
+                }
+            }else{$this->setMensajeOperacion("menurol->verificarPermiso: ".$this->getError());}
+        }else{$this->setMensajeOperacion("menurol->verificarPermiso: ".$this->getError());}
+
+        return $encontro;
     }
 
 

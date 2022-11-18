@@ -19,14 +19,16 @@ foreach ($arregloRoles as $rol) {
         $menu .= "<h5>" . $rol->getObjRol()->getRolDescripcion() . "</h5><hr>";
         // mostrar
         foreach ($permisos as $permiso) {
-            $menu .= '
-                <div class="col-12 mb-2">
-                    <a href="' . $permiso->getObjMenu()->getDescripcion() . '" class="btn text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-fill mb-1" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                    </svg>
-                        <h4 class="d-inline mx-3">' . $permiso->getObjMenu()->getNombre() . '</h4>
-                    </a>
-                </div>';
+            if($permiso->getObjMenu()->getDescripcion() != "../Perfil/index.php" && $permiso->getObjMenu()->getDescripcion() != "../pago/index.php"){
+                $menu .= '
+                    <div class="col-12 mb-2">
+                        <a href="' . $permiso->getObjMenu()->getDescripcion() . '" class="btn text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-fill mb-1" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg>
+                            <h4 class="d-inline mx-3">' . $permiso->getObjMenu()->getNombre() . '</h4>
+                        </a>
+                    </div>';
+            }
         }
     }
 

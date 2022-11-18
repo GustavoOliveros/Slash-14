@@ -1,0 +1,254 @@
+<?php
+$titulo = "Pago";
+include_once "../Estructura/headerSeguro.php";
+
+$objControl = new AbmCompra();
+
+$param["idusuario"] = $_SESSION["idusuario"];
+$compras = $objControl->buscar($param);
+$contador = 0;
+$bandera = false;
+
+if(isset($compras) && count($compras) > 0){
+    while($contador < count($compras) && !$bandera){
+        $compraEstado = $objControl->buscarEstado(["id" => $compras[$contador]->getId(), "idcompraestadotipo" => 1]);
+        if(isset($compraEstado) && count($compraEstado) > 0){
+            // tengo carrito
+            $list = $objControl->buscarItems(["id" => $compras[$contador]->getId()]);
+            $bandera = true;
+        }
+        $contador++;
+    }
+}
+
+$combo =  "";
+
+if(isset($list) && count($list) > 0){
+    foreach ($list as $elem){
+        $combo .= '<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+        '.  mb_strimwidth($elem->getObjProducto()->getNombre(), 0, 20, "...").'x '. $elem->getCantidad() .'
+        <span>$10,000</span>
+      </li>';
+    }
+}
+
+?>
+<!-- Credit card form -->
+<main class="col-12 my-3 mx-auto w-100 max">
+    <div id="errores"></div>
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="card mb-4">
+        <div class="card-header py-3">
+          <h5 class="mb-0">Dirección de Envío</h5>
+        </div>
+        <div class="card-body">
+          <form id="form-abm" method="POST" action="../pedidos/index.php">
+            <input type="text" name="id" id="id" value="<?php echo $list[0]->getObjCompra()->getId()  ?>" hidden>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="nombre" name="nombre" class="form-control" required />
+                  <label class="form-label" for="nombre">Nombre</label>
+                  <div class="invalid-feedback" id="feedback-nombre"></div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="apellido" name="apellido" class="form-control" required />
+                  <label class="form-label" for="apellido">Apellido</label>
+                  <div class="invalid-feedback" id="feedback-apellido"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="direccion" name="direccion" class="form-control" required />
+              <label class="form-label" for="direccion">Dirección</label>
+              <div class="invalid-feedback" id="feedback-direccion"></div>
+            </div>
+
+            <hr class="my-4" />
+
+            <h5 class="mb-4">Pago</h5>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="titular" name="titular" class="form-control" required />
+                  <label class="form-label" for="titular">Titular de la tarjeta</label>
+                  <div class="invalid-feedback" id="feedback-titular"></div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="numero" name="numero" class="form-control" maxlength="16"  required/>
+                  <label class="form-label" for="numero" >Número de tarjeta</label>
+                  <div class="invalid-feedback" id="feedback-numero"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-3">
+                <div class="form-outline">
+                  <input type="text" id="vencimiento" name="vencimiento" class="form-control" required maxlength="5" />
+                  <label class="form-label" for="vencimiento">Fecha de vencimiento</label>
+                  <div class="invalid-feedback" id="feedback-vencimiento"></div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-outline">
+                  <input type="password" id="cvv" name="cvv" class="form-control" maxlength="4" />
+                  <label class="form-label" for="cvv">CVV</label>
+                  <div class="invalid-feedback" id="feedback-cvv"></div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit" id="btn-submit">
+              Realizar Pago
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card mb-4">
+        <div class="card-header py-3">
+          <h5 class="mb-0">Su compra</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <?php echo $combo; ?>
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+              Envio
+              <span>Gratis</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+              <div>
+                <strong>Total</strong>
+                <strong>
+                  <p class="mb-0">(con IVA)</p>
+                </strong>
+              </div>
+              <span><strong>$10,000</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Credit card form -->
+
+<script>
+    $(document).ready(function(){
+        $.validator.addMethod("formatoVencimiento", function(value) {
+            return /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/.test(value);
+            }, "Formato MM/AA (ejemplo: 03/23)");
+
+
+        $.validator.addMethod("formatoTarjeta", function(value) {
+        return /^\d{16}$/.test(value);
+        }, "Formato: 0000000000000000");
+    })
+    $("#form-abm").validate({
+    rules: {
+        nombre: {
+            required: true,
+        },
+        apellido: {
+            required: true,
+        },
+        direccion: {
+            required: true,
+        },
+        titular: {
+            required: true,
+        },
+        numero: {
+            required: true,
+            formatoTarjeta: true,
+        },
+        vencimiento: {
+            required: true,
+            formatoVencimiento: true,
+        },
+        cvv: {
+            required: true,
+        },
+    },
+    messages: {
+        nombre: {
+            required: "Obligatorio",
+        },
+        apellido: {
+            required: "Obligatorio",
+        },
+        direccion: {
+            required: "Obligatorio",
+        },
+        titular: {
+            required: "Obligatorio",
+        },
+        numero: {
+            required: "Obligatorio",
+            pattern: "",
+        },
+        vencimiento: {
+            required: "Obligatorio",
+        },
+        cvv: {
+            required: "Obligatorio",
+        },
+    },
+    errorPlacement: function(error, element) {
+        let id = "#feedback-" + element.attr("id");
+        element.addClass("is-invalid");
+
+        $(id).text(error[0].innerText);
+    },
+    highlight: function(element) {
+        $(element).removeClass("is-valid").addClass("is-invalid");
+    },
+    unhighlight: function(element) {
+        $(element).removeClass("is-invalid").addClass("is-valid");
+    },
+    success: function(element) {
+        $(element).addClass("is-valid");
+    },
+    submitHandler: function(e) {
+        $.ajax({
+            url: "accion/accionPago.php",
+            type: "POST",
+            data: $("#form-abm").serialize(),
+            beforeSend: function() {
+                $("#btn-submit").html(
+                    '<span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>Cargando...'
+                );
+            },
+            complete: function() {
+                $("#btn-submit").html("Realizar Pago");
+            },
+            success: function(result) {
+                result = JSON.parse(result);
+
+                if (result.resultado) {
+                    window.location.replace("../Pedidos/index.php");
+                } else {
+                    $("#errores").html(mostrarError(result.errorMsg));
+                }
+            },
+        });
+    },
+});
+
+</script>
+
+<?php
+include_once "../Estructura/footer.php";
+?>

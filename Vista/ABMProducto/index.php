@@ -1,7 +1,6 @@
 <?php
 $titulo = "ABM Producto";
 include_once "../Estructura/headerSeguro.php";
-
 ?>
 
 <!-- Contenido -->

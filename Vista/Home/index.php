@@ -43,7 +43,7 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
     </div>
     <div class="max col-12 mx-auto my-4">
         <h2 class="mb-4">Destacados</h2>
-        <div class="row col-12 mb-5">
+        <div class="row col-12 mb-5 mx-auto">
             <?php
             foreach ($destacados as $productoKey) {
                 echo
@@ -60,7 +60,7 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
             ?>
         </div>
         <h3 class="mb-4">Recientemente añadidos</h3>
-        <div class="row col-12 mb-5">
+        <div class="row col-12 mb-5 mx-auto">
             <?php
             foreach ($colecRecientes as $producto) {
                 echo

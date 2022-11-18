@@ -106,7 +106,7 @@ class CompraEstadoTipo extends BaseDatos{
             if($this->Ejecutar($consulta)){
                 $arreglo = [];
                 while($fila = $this->Registro()){
-                    $objCompraestadotipo = new Compraestadotipo();
+                    $objCompraestadotipo = new CompraEstadoTipo();
                     $objCompraestadotipo->cargar($fila["idcompraestadotipo"],$fila["cetdescripcion"],$fila["cetdetalle"]);
                     array_push($arreglo, $objCompraestadotipo);
                 }

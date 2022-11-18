@@ -40,7 +40,7 @@ class Session{
      */
     public function validar(){
         $resp = false;
-        if($this->activa() && isset($_SESSION["idusuario"])){ // && $this->tienePermiso()
+        if($this->activa() && isset($_SESSION["idusuario"])){
             $resp = true;
         }
 
@@ -100,6 +100,17 @@ class Session{
      */
     public function tienePermiso(){
         $resp = false;
+
+        $ruta = $_SERVER['PHP_SELF'];
+        $ruta = explode("/" ,$ruta);
+        $rutaStr = "../";
+        $rutaStr .= $ruta[count($ruta)-2] . "/";
+        $rutaStr .= $ruta[count($ruta)-1];
+
+        $objMenuRol = new MenuRol();
+        if($objMenuRol->verificarPermiso($_SESSION["idusuario"],$rutaStr)){
+            $resp = true;
+        }
 
         return $resp;
     }
