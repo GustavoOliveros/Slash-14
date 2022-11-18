@@ -25,6 +25,7 @@ include_once "../Estructura/headerSeguro.php";
             <th field="nombre">Nombre</th>
             <th field="detalle">Detalle</th>
             <th field="cantstock">Stock</th>
+            <th field="imagen">Imagen</th>
             <th field="accion">Acciones</th>
         </thead>
         <tbody>
@@ -59,6 +60,11 @@ include_once "../Estructura/headerSeguro.php";
                                 <label for="cantstock" class="form-label">Cantidad de Stock</label>
                                 <input type="number" class="form-control" name="cantstock" id="cantstock" min="0">
                                 <div class="invalid-feedback" id="feedback-cantstock"></div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <label for="imagen" class="form-label">Imagen</label>
+                                <input type="file" accept=".jpg" name="imagen" id="imagen" class="form-control">
+                                <div class="invalid-tooltip" id="feedback-imagen"></div>
                             </div>
                         </div>
                     </div>
@@ -108,6 +114,9 @@ include_once "../Estructura/headerSeguro.php";
                     data: "cantstock"
                 },
                 {
+                    data: "imagen"
+                },
+                {
                     data: "accion"
                 }
             ]
@@ -137,7 +146,10 @@ include_once "../Estructura/headerSeguro.php";
                 required: "Obligatorio",
                 number: "Debe ingresar un número válido",
                 min: "Debe igual o mayor a 0",
-            }
+            },
+            imagen: {
+                accept: "Formatos aceptado: .jpg"
+            },
         },
         errorPlacement: function(error, element) {
             let id = "#feedback-" + element.attr("id");
@@ -155,10 +167,16 @@ include_once "../Estructura/headerSeguro.php";
             $(element).addClass("is-valid");
         },
         submitHandler: function(e) {
+            var formData = new FormData(document.getElementById("form-abm"));
+            formData.append("dato", "valor");
             $.ajax({
                 url: url,
                 type: "POST",
-                data: $("#form-abm").serialize(),
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
                 beforeSend: function(){
                 $("#btn-submit").html('<span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>Cargando...');
                 },

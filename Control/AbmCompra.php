@@ -127,6 +127,10 @@ class AbmCompra{
         return $arreglo;
     }
 
+    /**
+     * Buscar compra en estado carrito
+     */
+
     // Cambios de estado
 
     /**

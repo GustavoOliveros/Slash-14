@@ -61,7 +61,9 @@ class AbmProducto{
         $resp = array();
         $elObjtTabla = $this->cargarObjeto($param);
 
+
         if ($elObjtTabla!=null and $elObjtTabla->insertar()){
+            $this->subirArchivo($param);
             $resp = array('resultado'=> true,'error'=>'', 'obj' => $elObjtTabla);
         }else {
             $resp = array('resultado'=> false,'error'=> $elObjtTabla->getmensajeoperacion());
@@ -70,6 +72,24 @@ class AbmProducto{
         return $resp;
 
     }
+
+
+    /**
+     * Sube un archivo
+     */
+    public function subirArchivo($param){
+        $dir = "../../../Control/Subidas/";
+        $resp = false;
+
+        if ($param['imagen']['imagen']['error'] <= 0 && $param['imagen']['imagen']['type'] == "image/jpeg") {
+            if (copy($param['imagen']['imagen']['tmp_name'], $dir . md5($param["id"]). ".jpg")) {
+                $resp = true;
+            }
+        }
+
+        return $resp;
+    }
+
     /**
      * Permite eliminar un objeto
      * @param array $param
@@ -98,6 +118,7 @@ class AbmProducto{
             $elObjtTabla = $this->cargarObjeto($param);
             $elObjtTabla->setId($param["id"]);
             if($elObjtTabla!=null and $elObjtTabla->modificar()){
+                $this->subirArchivo($param);
                 $resp = true;
             }
         }

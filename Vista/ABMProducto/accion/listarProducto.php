@@ -13,6 +13,8 @@ foreach ($list as $elem){
     $nuevoElem["nombre"]=$elem->getNombre();
     $nuevoElem["detalle"]=$elem->getDetalle();
     $nuevoElem["cantstock"] = $elem->getCantStock();
+
+    $nuevoElem["imagen"] = '<a href="../../Control/Subidas/'. md5($elem->getId()) .'.jpg" class="btn btn-primary">Ver</a>';
     
     $nuevoElem["accion"] =
     '<button class="btn btn-warning" id="edit-' . $elem->getId() . '" onclick="editMenu();">

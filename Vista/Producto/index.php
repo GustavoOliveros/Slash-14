@@ -10,11 +10,17 @@ $colecProductos = $objC->buscar(null);
 $destacados = array_rand($colecProductos, 3);
 $recomendaciones = "";
 
+$imagen = "../../Control/Subidas/". md5($producto[0]->getId()) . ".jpg";
+$imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+
 foreach ($destacados as $productoKey) {
+    $recomendacionesImg = "../../Control/Subidas/". md5($colecProductos[$productoKey]->getId()) . ".jpg";
+    $recomendacionesImg = (file_exists($recomendacionesImg)) ? $recomendacionesImg : "../img/product-placeholder.jpg";
+
     $recomendaciones .=
         '<div class="col-12 col-md-4 mb-3"><a class="text-dark text-decoration-none" href="../Producto/index.php?id=' . $colecProductos[$productoKey]->getId() . '">
     <div class="card" style="width: 18rem;height:450px">
-        <img src="../img/product-placeholder.jpg" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
+        <img src="'.$recomendacionesImg.'" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
         <div class="card-body">
             <p class="card-title">' . $colecProductos[$productoKey]->getNombre() . '</p>
             <h4>$10.000,00</h4>
@@ -37,8 +43,8 @@ foreach ($destacados as $productoKey) {
         <div class="row col-12 p-3 rounded mx-auto">
 
             <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column p-5">
-                <img src="../img/placeholder-pfp.jpg" class="rounded img-fluid d-flex align-items-center justify-content-center" alt="Foto de perfil">
-            </div>
+                <img src="'. $imagen .'" class="rounded img-fluid d-flex align-items-center justify-content-center" alt="Foto de perfil">
+            </div> 
 
             <div class="col-12 col-md-6 p-5 d-flex align-items-center justify-content-center">
 

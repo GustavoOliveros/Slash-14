@@ -46,10 +46,14 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
         <div class="row col-12 mb-5 mx-auto">
             <?php
             foreach ($destacados as $productoKey) {
+                $imagen = "../../Control/Subidas/". md5($colecProductos[$productoKey]->getId()) . ".jpg";
+                $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+            
+
                 echo
                 '<div class="col-12 col-md-4 mb-3"><a class="text-dark text-decoration-none" href="../Producto/index.php?id='. $colecProductos[$productoKey]->getId() .'">
                 <div class="card" style="width: 18rem;height:450px">
-                    <img src="../img/product-placeholder.jpg" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
+                    <img src="'. $imagen .'" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
                     <div class="card-body">
                         <p class="card-title">' . $colecProductos[$productoKey]->getNombre() . '</p>
                         <h4>$10.000,00</h4>

@@ -6,6 +6,7 @@ $respuesta = false;
 if (isset($data['id'])){
     $objC = new AbmProducto();
 
+    $data["imagen"] = $_FILES;
     $respuesta = $objC->modificacion($data);
     
     if (!$respuesta){
