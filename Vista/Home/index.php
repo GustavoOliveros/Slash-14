@@ -15,21 +15,21 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
 ?>
 <!-- Contenido -->
 <main class="col-12 mx-auto">
-    <div id="carouselExampleIndicators" class="carousel slide mx-auto shadow" data-bs-ride="true" style="max-width:1400px;">
+    <div id="carouselExampleIndicators" class="carousel slide mx-auto shadow" data-bs-ride="carousel" style="max-width:1400px;">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner  rounded-bottom">
-            <div class="carousel-item active">
-                <img src="https://www.ems-usa.com/wp-content/uploads/2015/05/placeholder-banner.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item active" data-bs-interval="5000">
+                <img src="../img/banner-1.png" class="d-block w-100" alt="">
             </div>
-            <div class="carousel-item">
-                <img src="https://www.ems-usa.com/wp-content/uploads/2015/05/placeholder-banner.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="../img/banner-2.png" class="d-block w-100" alt="">
             </div>
-            <div class="carousel-item">
-                <img src="https://www.ems-usa.com/wp-content/uploads/2015/05/placeholder-banner.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="../img/banner-3.png" class="d-block w-100" alt="">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -67,10 +67,13 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
         <div class="row col-12 mb-5 mx-auto">
             <?php
             foreach ($colecRecientes as $producto) {
+                $imagen = "../../Control/Subidas/". md5($producto->getId()) . ".jpg";
+                $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+
                 echo
                 '<div class="col-12 col-md-4 mb-3"><a class="text-dark text-decoration-none" href="../Producto/index.php?id='. $producto->getId() .'">
                 <div class="card" style="width: 18rem;height:450px">
-                    <img src="../img/product-placeholder.jpg" class="card-img-top" alt="' . $producto->getNombre() . '">
+                    <img src="'.$imagen.'" class="card-img-top" alt="' . $producto->getNombre() . '">
                     <div class="card-body">
                         <p class="card-title">' . $producto->getNombre() . '</p>
                         <h4>$10.000,00</h4>

@@ -31,15 +31,8 @@ foreach ($arregloRoles as $rol) {
             }
         }
     }
-
-    
-
 }
-
-
-
 ?>
-
 
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">

@@ -2,16 +2,16 @@
 $titulo = "Producto";
 include_once "../Estructura/headerInseguro.php";
 
+// Obtencion de datos y busqueda del producto
 $param = data_submitted();
 $objC = new AbmProducto;
 $producto = $objC->buscar($param);
 
+// Armado de destacados
 $colecProductos = $objC->buscar(null);
+unset($colecProductos[$producto[0]->getId()-1]); // Para evitar que salga el producto actual
 $destacados = array_rand($colecProductos, 3);
 $recomendaciones = "";
-
-$imagen = "../../Control/Subidas/". md5($producto[0]->getId()) . ".jpg";
-$imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
 
 foreach ($destacados as $productoKey) {
     $recomendacionesImg = "../../Control/Subidas/". md5($colecProductos[$productoKey]->getId()) . ".jpg";
@@ -37,6 +37,13 @@ foreach ($destacados as $productoKey) {
         echo mostrarError('El producto no fue encontrado.<br>
         <a href="../Home/index.php">Volver al menu principal</a>');
     } else {
+        $imagen = "../../Control/Subidas/". md5($producto[0]->getId()) . ".jpg";
+        $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+
+        $boton = ($iniciada) ?
+            '<button class="btn btn-primary col-12 my-2" type="submit" id="btn-submit">Agregar al Carrito</button>' :
+            '<button class="btn btn-primary col-12 my-2" data-bs-toggle="modal" href="#inicioSesion" role="button" aria-controls="modal">Agregar al Carrito</button>';
+
         echo '<div class="col-12 rounded">
         <div id="exito"></div>
         <div id="errores"></div>
@@ -65,7 +72,7 @@ foreach ($destacados as $productoKey) {
                         </div>
                         
 
-                        <button class="btn btn-primary col-12 my-2" type="submit" id="btn-submit">Agregar al Carrito</button>
+                        '.$boton.'
                     </div>
 
                 </form>

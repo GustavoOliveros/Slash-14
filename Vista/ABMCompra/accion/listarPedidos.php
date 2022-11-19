@@ -15,6 +15,8 @@ if(isset($list) && count($list) > 0){
         $nuevoElem["productos"] = "";
         $items = $objControl->buscarItems(["id" => $elem->getId()]);
 
+        $nuevoElem["usuario"] = $elem->getObjUsuario()->getNombre();
+
         if(isset($items) && count($items) > 0){
             $nuevoElem["productos"] .= "<ul>";
             foreach($items as $item){

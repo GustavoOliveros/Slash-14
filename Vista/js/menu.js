@@ -64,6 +64,12 @@ $("#form-abm").validate({
 			url: url,
 			type: "POST",
 			data: $("#form-abm").serialize(),
+			beforeSend: function(){
+                $("#btn-submit").html('<span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>Cargando...');
+                },
+			complete: function(){
+				$("#btn-submit").html("Reintentar")
+			},
 			success: function (result) {
 				$("#dlg").modal("hide");
 				$("#form-abm").trigger("reset");

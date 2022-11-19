@@ -5,3 +5,9 @@
 table.dataTable td {
     word-break: break-word;
 }
+
+.producto-busqueda:hover{
+    opacity: 70%;
+    transition: 0.5s;
+
+}

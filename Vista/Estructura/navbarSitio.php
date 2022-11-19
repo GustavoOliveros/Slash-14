@@ -21,9 +21,10 @@
         <div class="d-flex align-items-end justify-content-end flex-row collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item ms-3 d-flex align-items-center justify-content-center">
-                    <a data-bs-toggle="modal" href="#inicioSesion" role="button" aria-controls="modal"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-search text-light" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg></a>
+                    <form action="../busqueda/index.php" method="get" id="busqueda" novalidate>
+                        <input type="text" class="form-control" id="q" name="q" placeholder="Buscar..." required>
+                        <div id="error" hidden></div>
+                    </form>
                 </li>
                 <li class="nav-item  ms-3 d-flex align-items-center justify-content-center">
                     <a data-bs-toggle="modal" href="<?php echo ($iniciada) ? "../carrito/index.php" : "#inicioSesion"  ?>" role="button" aria-controls="modal"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-cart3 text-light" viewBox="0 0 16 16">
@@ -74,7 +75,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="fw-5 text-center m-3">Iniciar Sesión</h1>
+                <h1 class="fw-5 text-center m-3">Iniciar sesión</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -111,3 +112,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("#busqueda").validate({
+        rules: {
+            q:{
+                required: true,
+            },
+        },
+        messages:{
+            q: {
+                required: "",
+            },
+        },
+        errorPlacement: function(error, element){
+            $("#error").html(error[0].innerText);
+        }
+    });
+    </script>

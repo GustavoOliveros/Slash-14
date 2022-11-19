@@ -148,7 +148,7 @@ include_once "../Estructura/headerSeguro.php";
                 min: "Debe igual o mayor a 0",
             },
             imagen: {
-                accept: "Formatos aceptado: .jpg"
+                accept: "Formato aceptado: .jpg"
             },
         },
         errorPlacement: function(error, element) {

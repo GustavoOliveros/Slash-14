@@ -132,16 +132,13 @@ class AbmProducto{
      */
     public function buscar($param){
         $where = " true ";
-        $claves = ["id"];
-        $db = ["idproducto"];
 
+        if(isset($param["id"])){
+            $where .= "AND idproducto = " . $param["id"];
+        }
 
-        if ($param<>null){
-            for($i = 0; $i < count($claves); $i++){
-                if(isset($param[$claves[$i]])){
-                    $where.= " and " . $db[$i] . " = '". $param[$claves[$i]]  ."'";
-                }
-            }
+        if(isset($param["nombre"])){
+            $where .= "AND pronombre LIKE '%" . $param["nombre"] . "%'";
         }
 
         $obj = new Producto();

@@ -20,6 +20,7 @@ $estados = $objControl->listarEstados();
     <table class="table table-striped table-bordered nowrap" id="tabla">
         <thead class="bg-dark text-light">
             <th field="id">Id</th>
+            <th field="usuario">Usuario</th>
             <th field="productos">Productos</th>
             <th field="fecha">Fecha de Compra</th>
             <th field="estado">Estado</th>
@@ -94,6 +95,9 @@ $estados = $objControl->listarEstados();
             columns: [
                 {
                     data: "id",
+                },
+                {
+                    data: "usuario"
                 },
                 {
                     data: "productos",
