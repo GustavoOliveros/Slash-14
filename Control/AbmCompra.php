@@ -128,8 +128,25 @@ class AbmCompra{
     }
 
     /**
-     * Buscar compra en estado carrito
+     * Retorna el carrito de un usuario
+     * @param array $param
+     * @return Compra|null
      */
+    public function retornarCarrito($param){
+        $resultado = null;
+
+        if(isset($param["idusuario"])){
+            $obj = new Usuario;
+            $obj->buscar($param["idusuario"]);
+
+            $objCo = new Compra;
+            $objCo->setObjUsuario($obj);
+            $resultado = $objCo->buscarCarrito();
+        }
+
+        return $resultado;
+    }
+
 
     // Cambios de estado
 
@@ -293,8 +310,8 @@ class AbmCompra{
      */
     public function buscarItems($param){
         $where = " true ";
-        $claves = ["id", "idcompraitem"];
-        $db = ["idcompra", "idcompraitem"];
+        $claves = ["id", "idcompraitem", "idproducto"];
+        $db = ["idcompra", "idcompraitem", "idproducto"];
 
 
         if ($param<>null){

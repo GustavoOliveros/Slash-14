@@ -5,21 +5,13 @@ include_once "../Estructura/headerSeguro.php";
 $objControl = new AbmCompra();
 
 $param["idusuario"] = $_SESSION["idusuario"];
-$compras = $objControl->buscar($param);
-$contador = 0;
-$bandera = false;
+$compras = $objControl->retornarCarrito($param);
 
-if (isset($compras) && count($compras) > 0) {
-  while ($contador < count($compras) && !$bandera) {
-    $compraEstado = $objControl->buscarEstado(["id" => $compras[$contador]->getId(), "idcompraestadotipo" => 1]);
-    if (isset($compraEstado) && count($compraEstado) > 0) {
-      // tengo carrito
-      $list = $objControl->buscarItems(["id" => $compras[$contador]->getId()]);
-      $bandera = true;
-    }
-    $contador++;
-  }
+if(isset($compras)){
+    $param["id"] = $compras->getId();
+    $list = $objControl->buscarItems($param);
 }
+
 
 echo '<main class="col-12 my-3 mx-auto w-100 max">';
 $combo =  "";

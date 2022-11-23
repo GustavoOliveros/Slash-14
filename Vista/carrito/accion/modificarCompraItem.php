@@ -14,8 +14,6 @@ if (isset($data['idcompraitem'])){
         $sms_error =  "No contamos con stock para esa cantidad (Máximo: " . $arreglo[0]->getObjProducto()->getCantStock() . ").";
     }
 
-
-
     if (!isset($sms_error) && !$respuesta){
         $sms_error = "La modificación no pudo concretarse";
     }

@@ -175,5 +175,27 @@ class Compra extends BaseDatos{
 
         return $seConcreto;
     }
+
+    /**
+     * Obtiene la compra activa en estado carrito
+     * @return Compra|null
+     */
+    public function buscarCarrito(){
+        $resultado = null;
+
+        $consulta = "SELECT * FROM compra INNER JOIN compraestado ON compraestado.idcompra = compra.idcompra
+        WHERE idusuario = ".$this->getObjUsuario()->getId() ." AND idcompraestadotipo = 1 AND cefechafin = '0000-00-00 00:00:00';";
+
+        if($this->Iniciar()){
+            if($this->Ejecutar($consulta)){
+                if($fila = $this->Registro()){
+                    $resultado = new Compra();
+                    $resultado->buscar($fila["idcompra"]);
+                }
+            }else{$this->setMensajeOperacion("compra->buscarCarrito: ".$this->getError());}
+        }else{$this->setMensajeOperacion("compra->buscarCarrito: ".$this->getError());}
+
+        return $resultado;
+    }
 }
 ?>

@@ -37,7 +37,7 @@ foreach ($arregloRoles as $rol) {
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
     <div class="container-fluid max">
-        <a class="navbar-brand fw-bold" href="../Home/index.php">SLASH</a>
+        <a class="navbar-brand fw-bold" href="../Home/index.php"><img src="../img/LOGO.png" alt="" class="img-fluid mb-1" style="max-width:100px;"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,7 +55,7 @@ foreach ($arregloRoles as $rol) {
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="menu-dinamico" aria-labelledby="menu-dinamico-label">
     <div class="offcanvas-header">
-        <h1 class="offcanvas-title text-center fw-5" id="menu-dinamico-label">SLASH</h1>
+        <h1 class="offcanvas-title text-center fw-5" id="menu-dinamico-label"><img src="../img/LOGO_BLACK.png" class="col-10 img-fluid" alt=""></h1>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">

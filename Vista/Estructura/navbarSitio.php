@@ -17,7 +17,7 @@
 </nav>
 <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
     <div class="container-fluid max">
-        <a class="navbar-brand fw-bold" href="../Home/index.php">SLASH</a>
+        <a class="navbar-brand fw-bold" href="../Home/index.php"><img src="../img/LOGO.png" alt="" class="img-fluid mb-1" style="max-width:100px;"></a>
         <div class="d-flex align-items-end justify-content-end flex-row collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item ms-3 d-flex align-items-center justify-content-center">
