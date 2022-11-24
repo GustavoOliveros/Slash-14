@@ -11,8 +11,15 @@ $arreglo_salida =  array();
 foreach ($list as $elem){
     $nuevoElem['id'] = $elem->getId();
     $nuevoElem["nombre"]=$elem->getNombre();
-    $nuevoElem["detalle"]=$elem->getDetalle();
+
     $nuevoElem["cantstock"] = $elem->getCantStock();
+
+
+    $detalle = explode("///",$elem->getDetalle());
+
+    $nuevoElem["detalle"] = $detalle[1];
+    $nuevoElem["precio"] = $detalle[0];
+
 
     $nuevoElem["imagen"] = '<a href="../../Control/Subidas/'. md5($elem->getId()) .'.jpg" class="btn btn-primary">Ver</a>';
     

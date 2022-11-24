@@ -17,34 +17,34 @@ $(document).ready(function() {
     var table = $("#tabla").DataTable({
         responsive: true,
         ajax: {
-            url: "accion/listarCompraItem.php",
+            url: "accion/listarRol.php",
             dataSrc: "",
         },
-        columns: [
-            {
-                data: "producto",
+        columns: [{
+                data: "id",
             },
             {
-                data: "cantidad",
+                data: "roldescripcion",
+            },
+            {
+                data: "permisos",
             },
             {
                 data: "accion",
             },
-        ]
+        ],
     });
 });
 
 $("#form-abm").validate({
     rules: {
-        cantidad: {
+        roldescripcion: {
             required: true,
         },
     },
     messages: {
-        cantidad: {
+        roldescripcion: {
             required: "Obligatorio",
-            min: "Debe ser mayor a 0",
-            number: "Ingrese un número válido"
         },
     },
     errorPlacement: function(error, element) {
@@ -96,7 +96,24 @@ function recargar() {
 
 function limpiar() {
     $("#form-abm").trigger("reset");
-    $("#cantidad").removeClass("is-invalid").removeClass("is-valid");
+    $("#roldescripcion").removeClass("is-invalid").removeClass("is-valid");
+    $("#permisos").removeClass("is-invalid").removeClass("is-valid");
+    var arreglo = $(".permisos");
+    for (var i = 0; i < arreglo.length; i++) {
+        arreglo[i].removeAttribute("checked");
+    }
+}
+
+function newMenu() {
+    $("#title").html("Nuevo");
+    $("#dlg").modal("show");
+
+    limpiar();
+
+    $("#btn-submit").html("Agregar");
+    $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
+
+    url = "accion/altaRol.php";
 }
 
 function editMenu() {
@@ -108,41 +125,20 @@ function editMenu() {
             $("#dlg").modal("show");
             limpiar();
 
-            $("#delete-form").hide();
-            $("#edit-form").show();
+            var arreglo = $(".permisos");
+            for (var i = 0; i < arreglo.length; i++) {
+                if ($("#" + data["id"] + "-" + arreglo[i].value).length != 0) {
+                    arreglo[i].setAttribute("checked", "true");
+                }
+            }
 
             $("#btn-submit").html("Editar");
             $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
 
-            $("#idcompraitem").val(data["id"]);
-            $("#cantidad").val(data["cantidad"]);
+            $("#id").val(data["id"]);
+            $("#roldescripcion").val(data["roldescripcion"]);
 
-            url = "accion/modificarCompraItem.php";
-        }
-    });
-}
-
-function destroyMenu() {
-    $("#tabla tbody").on("click", "button", function() {
-        var data = $("#tabla").DataTable().row($(this).parents("tr")).data();
-
-        if (data != null) {
-            $("#title").html("Eliminar");
-            $("#dlg").modal("show");
-
-            limpiar();
-
-            $("#edit-form").hide();
-            $("#delete-form").show();
-
-            $("#rol-name").text(data.producto);
-            $("#btn-submit").html("Eliminar");
-            $("#btn-submit").removeClass("btn-primary").addClass("btn-danger");
-
-            $("#idcompraitem").val(data["id"]);
-            $("#cantidad").val(data["cantidad"]);
-
-            url = "accion/eliminarCompraItem.php";
+            url = "accion/modificarRol.php";
         }
     });
 }

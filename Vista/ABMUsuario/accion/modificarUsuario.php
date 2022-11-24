@@ -11,15 +11,19 @@ $sinModificaciones = $objC->buscar($data);
 
 // Modificación usuario
 if (isset($data['id']) && !isset($sinModificaciones)){
-    $objC = new AbmUsuario();
+    if(!$objC->revisar($data)){
+        $objC = new AbmUsuario();
 
-    $data["deshabilitado"] = "'0000-00-00 00:00:00'";
-    $data["pass"] = "";
+        $data["deshabilitado"] = "'0000-00-00 00:00:00'";
+        $data["pass"] = "";
 
-    $respuesta = $objC->modificacion($data);
-    
-    if (!$respuesta){
-        $sms_error = "La modificación no pudo concretarse";
+        $respuesta = $objC->modificacion($data);
+        
+        if (!$respuesta){
+            $sms_error = "La modificación no pudo concretarse";
+        }
+    }else{
+        $sms_error = "El usuario o el mail ya se encuentran registrados por otro usuario.";
     }
 }else{
     if(!isset($sinModificaciones)){

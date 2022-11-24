@@ -141,11 +141,16 @@ class AbmUsuario{
         if(isset($param["nombre"]) && isset($param["mail"])){
             $objM = new Usuario();
             $resultado = $objM->listar("usnombre = '" . $param["nombre"] . "' OR usmail = '" . $param["mail"] . "'");
-            if(isset($resultado) && count($resultado) > 0 && $resultado[0]->getId() != $param["id"]){
-                $resp = true;
+            if(isset($param["id"])){
+                if(isset($resultado) && count($resultado) > 0 && $resultado[0]->getId() != $param["id"]){
+                    $resp = true;
+                }
+            }else{
+                if(isset($resultado) && count($resultado) > 0){
+                    $resp = true;
+                }
             }
         }
-
         return $resp;
     }
 

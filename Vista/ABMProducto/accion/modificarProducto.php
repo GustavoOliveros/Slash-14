@@ -7,6 +7,10 @@ if (isset($data['id'])){
     $objC = new AbmProducto();
 
     $data["imagen"] = $_FILES;
+
+    $detalle = $data["precio"] . "///" . $data["detalle"];
+    $data["detalle"] = $detalle;    
+    
     $respuesta = $objC->modificacion($data);
     
     if (!$respuesta){
@@ -14,6 +18,10 @@ if (isset($data['id'])){
     }
 }else{
     $sms_error = "Hubo un error en el envío. Vuelva a intentarlo.";
+}
+
+if($respuesta){
+    $objC->subirArchivo(["imagen" => $_FILES, "id" => $data["id"]]);
 }
 
 $retorno['respuesta'] = $respuesta;

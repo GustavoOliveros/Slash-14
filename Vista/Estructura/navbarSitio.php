@@ -104,6 +104,7 @@
                             </div>
                         </div>
                     </div>
+                    ¿No tiene cuenta? <a data-bs-toggle="modal" href="#registro" role="button" aria-controls="modal">Regístrese</a>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary mx-auto" id="login-submit">Enviar</button>
@@ -112,21 +113,44 @@
         </div>
     </div>
 </div>
-
-<script>
-    $("#busqueda").validate({
-        rules: {
-            q:{
-                required: true,
-            },
-        },
-        messages:{
-            q: {
-                required: "",
-            },
-        },
-        errorPlacement: function(error, element){
-            $("#error").html(error[0].innerText);
-        }
-    });
-    </script>
+<div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registro" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="fw-5 text-center m-3">Registro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <div id="errores"></div>
+                    <form method="POST" id="form-abm">
+                        <div class="col-12 mb-2">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre">
+                            <div class="invalid-feedback" id="feedback-nombre"></div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label for="mail" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="mail" id="mail">
+                            <div class="invalid-feedback" id="feedback-mail"></div>
+                        </div>
+                        <div class="col-12 mb-2" id="password-field">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control passwords" name="pass" id="pass">
+                            <div class="invalid-feedback" id="feedback-pass"></div>
+                        </div>
+                        <div class="col-12 mb-3" id="validate-password-field">
+                            <label for="validarPass" class="form-label">Confirmar contraseña</label>
+                            <input type="password" class="form-control passwords" name="validarPass" id="validarPass">
+                            <div class="invalid-feedback" id="feedback-validarPass"></div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary mx-auto" id="btn-submit">Enviar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../js/busqueda.js"></script>

@@ -236,17 +236,6 @@ class AbmCompra{
     }
 
     /**
-     * Lista los tipos de estado
-     * @return array|null
-     */
-    public function listarEstados(){
-        $obj = new CompraEstadoTipo();
-        $arreglo = $obj->listar(NULL);
-        return $arreglo;
-    }
-
-
-    /**
      * Agrega un item
      * @param array
      * @return boolean

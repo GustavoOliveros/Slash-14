@@ -1,5 +1,5 @@
 <?php
-include_once "../../../configuracion.php";
+include_once "../../configuracion.php";
 $data = data_submitted();
 $respuesta = false;
 
@@ -11,6 +11,7 @@ if (isset($data['nombre'])){
         $data["deshabilitado"] = "0000-00-00 00:00:00";
     
         $respuesta = $objC->alta($data);
+        $objC->darRol(["id" => $respuesta["obj"]->getId(), "idrol" => 3]);
         
         if (!$respuesta["resultado"]){
             $sms_error = "La alta no pudo concretarse";
@@ -20,22 +21,6 @@ if (isset($data['nombre'])){
     }
 }else{
     $sms_error = "Hubo un error en el envío. Vuelva a intentarlo.";
-}
-
-// Modificación rol
-
-if(isset($data["roles"]) && !isset($sms_error)){
-    foreach($data["roles"] as $rol){
-        $arreglo["idrol"] = $rol;
-        $arreglo["id"] = $respuesta["obj"]->getId();
-        if(!$objC->darRol($arreglo)){
-            $sms_error = "No se pudieron asignar los roles.";
-        }
-    }
-}else{
-    if(!isset($sms_error)){
-        $sms_error = "No puede dejar a un usuario sin ningún rol";
-    }
 }
 
 $retorno['respuesta'] = $respuesta;

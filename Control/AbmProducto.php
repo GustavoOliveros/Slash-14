@@ -63,7 +63,6 @@ class AbmProducto{
 
 
         if ($elObjtTabla!=null and $elObjtTabla->insertar()){
-            $this->subirArchivo($param);
             $resp = array('resultado'=> true,'error'=>'', 'obj' => $elObjtTabla);
         }else {
             $resp = array('resultado'=> false,'error'=> $elObjtTabla->getmensajeoperacion());
@@ -76,6 +75,8 @@ class AbmProducto{
 
     /**
      * Sube un archivo
+     * @param array $param
+     * @return boolean
      */
     public function subirArchivo($param){
         $dir = "../../../Control/Subidas/";
@@ -118,7 +119,6 @@ class AbmProducto{
             $elObjtTabla = $this->cargarObjeto($param);
             $elObjtTabla->setId($param["id"]);
             if($elObjtTabla!=null and $elObjtTabla->modificar()){
-                $this->subirArchivo($param);
                 $resp = true;
             }
         }
@@ -144,6 +144,36 @@ class AbmProducto{
         $obj = new Producto();
         $arreglo = $obj->listar($where);
         return $arreglo;
+    }
+
+    /**
+     * Suma al stock
+     * @param array $param ["id" => 1, "cantidad" => "1", "operacion" => "suma"|"resta"]
+     * @return boolean
+     */
+    public function cambiarStock($param){
+        $resp = false;
+
+        if(isset($param["id"])){
+            $resultado = $this->buscar($param);
+        }
+
+        if(isset($resultado) && count($resultado) > 0 && isset($param["cantidad"]) && isset($param["operacion"])){
+            switch($param["operacion"]){
+                case "suma":
+                    $cantidad = $resultado[0]->getCantStock() + $param["cantidad"];
+                    $resultado[0]->setCantStock($cantidad);
+                    $resp = $resultado[0]->modificar();
+                    break;
+                case "resta":
+                    $cantidad = $resultado[0]->getCantStock() - $param["cantidad"];
+                    $resultado[0]->setCantStock($cantidad);
+                    $resp = $resultado[0]->modificar();
+                    break;
+            }
+        }
+
+        return $resp;
     }
 
   }

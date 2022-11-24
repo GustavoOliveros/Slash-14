@@ -1,4 +1,6 @@
 var url;
+const PRECIO = $("#precio").text();
+
 
 /**
  * Plantilla para mostrar un cartel de error
@@ -12,28 +14,6 @@ function mostrarError(contenidoError) {
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
     );
 }
-
-$(document).ready(function() {
-    var table = $("#tabla").DataTable({
-        responsive: true,
-        ajax: {
-            url: "accion/listarCompraItem.php",
-            dataSrc: "",
-        },
-        columns: [
-            {
-                data: "producto",
-            },
-            {
-                data: "cantidad",
-            },
-            {
-                data: "accion",
-            },
-        ]
-    });
-});
-
 $("#form-abm").validate({
     rules: {
         cantidad: {
@@ -64,7 +44,7 @@ $("#form-abm").validate({
     },
     submitHandler: function(e) {
         $.ajax({
-            url: url,
+            url: "../carrito/accion/altaCompraItem.php",
             type: "POST",
             data: $("#form-abm").serialize(),
             beforeSend: function() {
@@ -73,15 +53,15 @@ $("#form-abm").validate({
                 );
             },
             complete: function() {
-                $("#btn-submit").html("Reintentar");
+                $("#btn-submit").html("Agregar al Carrito");
             },
             success: function(result) {
                 result = JSON.parse(result);
 
                 if (result.respuesta) {
-                    $("#dlg").modal("hide");
-                    $("#form-abm").trigger("reset");
-                    recargar();
+                    var exito = '<div class="col-12 alert alert-success m-3 p-3 mx-auto alert-dismissible fade show" role="alert">Se agregó con éxito<br>'+
+                    '<a href="../carrito/index.php">Ver en su carrito.</a><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+                    $("#exito").html(exito);
                 } else {
                     $("#errores").html(mostrarError(result.errorMsg));
                 }
@@ -90,13 +70,34 @@ $("#form-abm").validate({
     },
 });
 
+$("#cantidad").on("input",function(){
+    $("#precio").text($("#cantidad").val() * PRECIO);
+})
+
 function recargar() {
     $("#tabla").DataTable().ajax.reload();
 }
 
 function limpiar() {
     $("#form-abm").trigger("reset");
-    $("#cantidad").removeClass("is-invalid").removeClass("is-valid");
+    $("#roldescripcion").removeClass("is-invalid").removeClass("is-valid");
+    $("#permisos").removeClass("is-invalid").removeClass("is-valid");
+    var arreglo = $(".permisos");
+    for (var i = 0; i < arreglo.length; i++) {
+        arreglo[i].removeAttribute("checked");
+    }
+}
+
+function newMenu() {
+    $("#title").html("Nuevo");
+    $("#dlg").modal("show");
+
+    limpiar();
+
+    $("#btn-submit").html("Agregar");
+    $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
+
+    url = "accion/altaRol.php";
 }
 
 function editMenu() {
@@ -108,41 +109,20 @@ function editMenu() {
             $("#dlg").modal("show");
             limpiar();
 
-            $("#delete-form").hide();
-            $("#edit-form").show();
+            var arreglo = $(".permisos");
+            for (var i = 0; i < arreglo.length; i++) {
+                if ($("#" + data["id"] + "-" + arreglo[i].value).length != 0) {
+                    arreglo[i].setAttribute("checked", "true");
+                }
+            }
 
             $("#btn-submit").html("Editar");
             $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
 
-            $("#idcompraitem").val(data["id"]);
-            $("#cantidad").val(data["cantidad"]);
+            $("#id").val(data["id"]);
+            $("#roldescripcion").val(data["roldescripcion"]);
 
-            url = "accion/modificarCompraItem.php";
-        }
-    });
-}
-
-function destroyMenu() {
-    $("#tabla tbody").on("click", "button", function() {
-        var data = $("#tabla").DataTable().row($(this).parents("tr")).data();
-
-        if (data != null) {
-            $("#title").html("Eliminar");
-            $("#dlg").modal("show");
-
-            limpiar();
-
-            $("#edit-form").hide();
-            $("#delete-form").show();
-
-            $("#rol-name").text(data.producto);
-            $("#btn-submit").html("Eliminar");
-            $("#btn-submit").removeClass("btn-primary").addClass("btn-danger");
-
-            $("#idcompraitem").val(data["id"]);
-            $("#cantidad").val(data["cantidad"]);
-
-            url = "accion/eliminarCompraItem.php";
+            url = "accion/modificarRol.php";
         }
     });
 }

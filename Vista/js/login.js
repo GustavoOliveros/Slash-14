@@ -10,7 +10,7 @@
 }
 
 $(document).ready(function(){
-    $.validator.addMethod("diferentes", function(value, element) {
+    $.validator.addMethod("diferentesLog", function(value, element) {
         resp = false;
 
         if($("#username").val() != $("#password").val()){
@@ -19,33 +19,28 @@ $(document).ready(function(){
 
         return resp;
         }, "El usuario y la contraseña no pueden ser iguales.");
-
-    $.validator.addMethod("formatoPass", function(value) {
-        return /^(?=.*\d).{8,16}$/.test(value);
-        }, "La contraseña debe incluir entre 8 y 16 caracteres y al menos un número.");
 })
 
 $('#login').validate({
     rules:{
         username: {
             required: true,
-            diferentes: true,
+            diferentesLog: true,
         },
         password: {
             required: true,
-            diferentes: true,
+            diferentesLog: true,
             formatoPass: true,
         },
     },
     messages:{
         username: {
             required: "Obligatorio",
-            diferentes: "El usuario y la contraseña no pueden ser iguales.",
+            diferentesLog: "El usuario y la contraseña no pueden ser iguales.",
         },
         password: {
             required: "Obligatorio",
-            diferentes: "El usuario y la contraseña no pueden ser iguales.",
-            pattern: "La contraseña debe incluir entre 8 y 16 caracteres y al menos un número.",
+            diferentesLog: "El usuario y la contraseña no pueden ser iguales.",
         },
     },
     errorPlacement: function(error, element){

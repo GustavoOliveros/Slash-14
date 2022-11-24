@@ -2,9 +2,6 @@
 $titulo = "ABM Compras";
 include_once "../Estructura/headerSeguro.php";
 
-$objControl = new AbmCompra;
-$estados = $objControl->listarEstados();
-
 ?>
 
 <!-- Contenido -->
@@ -45,16 +42,14 @@ $estados = $objControl->listarEstados();
                         <div id="errores" class="col-12"></div>
                         <div id="edit-form">
                             <input type="text" name="id" id="id" hidden>
+                            <input type="text" name="idcompraestadotipo" id="idcompraestadotipo" hidden>
                             <div class="col-12 mb-2">
-                                <label for="idcompraestadotipo" class="form-label">Padre</label>
-                                <select name="idcompraestadotipo" id="idcompraestadotipo" class="form-select" required>
-                                    <option value="">Seleccione</option>
-                                    <?php
-                                    foreach($estados as $estado){
-                                        echo '<option class="estadostipos" value="'. $estado->getIdcet() . '">' . $estado->getCetdescripcion() . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <h3><span id="estadoactual"></span></h3>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-secondary" id="iniciada" role="progressbar" aria-label="Example with label" id="progreso" style="width: 33%;display:none;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-primary" id="aceptada" role="progressbar" aria-label="Example with label" id="progreso" style="width: 33%;display:none;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    <div class="progress-bar bg-success" id="enviada" role="progressbar" aria-label="Example with label" id="progreso" style="width: 34%;display:none;" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
                             </div>
                         </div>
                         <div id="delete-form">
@@ -62,153 +57,14 @@ $estados = $objControl->listarEstados();
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="btn-submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" id="btn-submit" class="btn btn-primary">Avanzar</button>
                         <input type="button" value="Cancelar" class="btn btn-secondary" onclick="$('#dlg').modal('hide');">
                     </div>
                 </form>
             </div>
         </div>
 </main>
-<script>
-    var url;
-
-    /**
-     * Plantilla para mostrar un cartel de error
-     * @param string $contenidoError
-     * @return string
-     */
-    function mostrarError(contenidoError) {
-        return (
-            '<div class="col-12 alert alert-danger m-3 p-3 mx-auto alert-dismissible fade show" role="alert">' +
-            contenidoError +
-            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-        );
-    }
-
-    $(document).ready(function() {
-        var table = $("#tabla").DataTable({
-            responsive: true,
-            ajax: {
-                url: "accion/listarPedidos.php",
-                dataSrc: "",
-            },
-            columns: [
-                {
-                    data: "id",
-                },
-                {
-                    data: "usuario"
-                },
-                {
-                    data: "productos",
-                },
-                {
-                    data: "fecha",
-                },
-                {
-                    data: "estado",
-                },
-                {
-                    data: "estadofecha",
-                },
-                {
-                    data: "accion",
-                },
-            ]
-        });
-    });
-
-    $("#form-abm").validate({
-        submitHandler: function(e) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: $("#form-abm").serialize(),
-                beforeSend: function() {
-                    $("#btn-submit").html(
-                        '<span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>Cargando...'
-                    );
-                },
-                complete: function() {
-                    $("#btn-submit").html("Reintentar");
-                },
-                success: function(result) {
-                    result = JSON.parse(result);
-
-                    if (result.respuesta) {
-                        $("#dlg").modal("hide");
-                        $("#form-abm").trigger("reset");
-                        recargar();
-                    } else {
-                        $("#errores").html(mostrarError(result.errorMsg));
-                    }
-                },
-            });
-        },
-    });
-
-
-    function recargar() {
-        $("#tabla").DataTable().ajax.reload();
-    }
-
-    function limpiar() {
-        $("#form-abm").trigger("reset");
-        $("#idcompraestadotipo").removeClass("is-invalid").removeClass("is-valid");
-        var arreglo = $(".estadostipo");
-        for (var i = 0; i < arreglo.length; i++) {
-            arreglo[i].removeAttribute("checked");
-        }
-    }
-
-
-    function destroyMenu() {
-        $("#tabla tbody").on("click", "button", function() {
-            var data = $("#tabla").DataTable().row($(this).parents("tr")).data();
-
-            if (data != null) {
-                $("#title").html("Cancelar Pedido");
-                $("#dlg").modal("show");
-
-                $("#edit-form").hide();
-			    $("#delete-form").show();
-
-                $("#btn-submit").html("Cancelar");
-                $("#btn-submit").removeClass("btn-primary").addClass("btn-danger");
-
-                $("#id").val(data["id"]);
-
-                url = "accion/cancelarPedido.php";
-            }
-        });
-    }
-
-    
-function editMenu() {
-	$("#tabla tbody").on("click", "button", function () {
-		var data = $("#tabla").DataTable().row($(this).parents("tr")).data();
-
-		if (data != null) {
-			$("#title").html("Cambiar Estado");
-			$("#dlg").modal("show");
-
-			limpiar();
-
-			$("#delete-form").hide();
-			$("#edit-form").show();
-
-			$("#btn-submit").val("Cambiar");
-			$("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
-
-			$("#id").val(data["id"]);
-			url = "accion/cambiarEstadoPedido.php";
-		}
-	});
-
-
-
-}
-</script>
+<script src="../js/compra.js"></script>
 
 <?php
 include_once "../Estructura/footer.php";

@@ -22,6 +22,7 @@ if($session->validar()){
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <script type="text/javascript" src="../js/main.js"></script>
     <script type="text/javascript" src="../js/login.js" defer></script>
+    <script type="text/javascript" src="../js/registro.js" defer></script>
     <script src="../js/carrito.js" defer></script>
 
     <script src="../lib/md5.min.js"></script>

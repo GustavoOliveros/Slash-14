@@ -14,6 +14,18 @@ if(isset($data["id"])){
     }
 }
 
+if($resultado){
+    $abmProducto = new AbmProducto;
+
+    $list = $objControl->buscarItems($data);
+
+    if(isset($list)){
+        foreach($list as $item){
+            $abmProducto->cambiarStock(["id" => $item->getObjProducto()->getId(),"cantidad" => $item->getCantidad(),"operacion" => "resta"]);
+        }   
+    }
+}
+
 
 if(isset($errorMsg)){
     $result["error"] = $errorMsg;
