@@ -48,6 +48,9 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
             foreach ($destacados as $productoKey) {
                 $imagen = "../../Control/Subidas/". md5($colecProductos[$productoKey]->getId()) . ".jpg";
                 $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+
+                $detalle = explode("///",$colecProductos[$productoKey]->getDetalle());
+                $precio = $detalle[0];
             
 
                 echo
@@ -56,7 +59,7 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
                     <img src="'. $imagen .'" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
                     <div class="card-body">
                         <p class="card-title">' . $colecProductos[$productoKey]->getNombre() . '</p>
-                        <h4>$10.000,00</h4>
+                        <h4>$'.$precio.'</h4>
                     </div>
                 </div></a>
                 </div>';
@@ -69,6 +72,9 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
             foreach ($colecRecientes as $producto) {
                 $imagen = "../../Control/Subidas/". md5($producto->getId()) . ".jpg";
                 $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
+            
+                $detalle = explode("///",$producto->getDetalle());
+                $precio = $detalle[0];
 
                 echo
                 '<div class="col-12 col-md-4 mb-3"><a class="text-dark text-decoration-none" href="../Producto/index.php?id='. $producto->getId() .'">
@@ -76,7 +82,7 @@ $colecRecientes[] = $colecProductos[count($colecProductos) - 3];
                     <img src="'.$imagen.'" class="card-img-top" alt="' . $producto->getNombre() . '">
                     <div class="card-body">
                         <p class="card-title">' . $producto->getNombre() . '</p>
-                        <h4>$10.000,00</h4>
+                        <h4>$'.$precio.'</h4>
                     </div>
                 </div></a>
                 </div>';

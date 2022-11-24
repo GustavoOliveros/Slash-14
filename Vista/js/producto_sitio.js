@@ -14,7 +14,7 @@ function mostrarError(contenidoError) {
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
     );
 }
-$("#form-abm").validate({
+$("#form-abm2").validate({
     rules: {
         cantidad: {
             required: true,
@@ -46,14 +46,14 @@ $("#form-abm").validate({
         $.ajax({
             url: "../carrito/accion/altaCompraItem.php",
             type: "POST",
-            data: $("#form-abm").serialize(),
+            data: $("#form-abm2").serialize(),
             beforeSend: function() {
-                $("#btn-submit").html(
+                $("#btn-submit2").html(
                     '<span class="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true"></span>Cargando...'
                 );
             },
             complete: function() {
-                $("#btn-submit").html("Agregar al Carrito");
+                $("#btn-submit2").html("Agregar al Carrito");
             },
             success: function(result) {
                 result = JSON.parse(result);
@@ -94,8 +94,8 @@ function newMenu() {
 
     limpiar();
 
-    $("#btn-submit").html("Agregar");
-    $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
+    $("#btn-submit2").html("Agregar");
+    $("#btn-submit2").removeClass("btn-danger").addClass("btn-primary");
 
     url = "accion/altaRol.php";
 }
@@ -116,8 +116,8 @@ function editMenu() {
                 }
             }
 
-            $("#btn-submit").html("Editar");
-            $("#btn-submit").removeClass("btn-danger").addClass("btn-primary");
+            $("#btn-submit2").html("Editar");
+            $("#btn-submit2").removeClass("btn-danger").addClass("btn-primary");
 
             $("#id").val(data["id"]);
             $("#roldescripcion").val(data["roldescripcion"]);

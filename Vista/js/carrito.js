@@ -28,6 +28,9 @@ $(document).ready(function() {
                 data: "cantidad",
             },
             {
+                data: "precio",
+            },
+            {
                 data: "accion",
             },
         ]

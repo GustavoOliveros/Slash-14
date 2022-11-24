@@ -144,6 +144,7 @@
                             <input type="password" class="form-control passwords" name="validarPass" id="validarPass">
                             <div class="invalid-feedback" id="feedback-validarPass"></div>
                         </div>
+                        ¿Ya tiene cuenta? <a data-bs-toggle="modal" href="#inicioSesion" role="button" aria-controls="modal">Inicie sesión</a>
                 </div>
             </div>
             <div class="modal-footer">

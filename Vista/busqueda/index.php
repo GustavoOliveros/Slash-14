@@ -14,6 +14,9 @@ if(isset($arreglo)){
         $imagen = "../../Control/Subidas/". md5($producto->getId()) . ".jpg";
         $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
 
+        $detalle = explode("///",$producto->getDetalle());
+        $precio = $detalle[0];
+
         $combo .= '
         <a href="../Producto/index.php?id='.$producto->getId().'" class="text-decoration-none text-dark producto-busqueda">
             <div class="col-12 border-bottom row d-flex align-items-center" style="height:200px">
@@ -22,7 +25,7 @@ if(isset($arreglo)){
                 </div>
                 <div class="col-6 d-flex flex-column justify-content-center">
                     <h5 class="fw-bold">'.$producto->getNombre().'</h5>
-                    <h3 class="fw-light">$<span id="precio">20000</span></h3>
+                    <h3 class="fw-light">$<span id="precio">'.$precio.'</span></h3>
                 </div>
             </div>
         </a>';

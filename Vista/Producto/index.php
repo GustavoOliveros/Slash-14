@@ -17,13 +17,18 @@ foreach ($destacados as $productoKey) {
     $recomendacionesImg = "../../Control/Subidas/". md5($colecProductos[$productoKey]->getId()) . ".jpg";
     $recomendacionesImg = (file_exists($recomendacionesImg)) ? $recomendacionesImg : "../img/product-placeholder.jpg";
 
+    
+    $detalle = explode("///",$colecProductos[$productoKey]->getDetalle());
+    $precio = $detalle[0];
+    $detalles = $detalle[1];
+
     $recomendaciones .=
         '<div class="col-12 col-md-4 mb-3"><a class="text-dark text-decoration-none" href="../Producto/index.php?id=' . $colecProductos[$productoKey]->getId() . '">
     <div class="card" style="width: 18rem;height:450px">
         <img src="'.$recomendacionesImg.'" class="card-img-top" alt="' . $colecProductos[$productoKey]->getNombre() . '">
         <div class="card-body">
             <p class="card-title">' . $colecProductos[$productoKey]->getNombre() . '</p>
-            <h4>$10.000,00</h4>
+            <h4>$'.$precio.'</h4>
         </div>
     </div></a>
     </div>';
@@ -40,8 +45,13 @@ foreach ($destacados as $productoKey) {
         $imagen = "../../Control/Subidas/". md5($producto[0]->getId()) . ".jpg";
         $imagen = (file_exists($imagen)) ? $imagen : "../img/product-placeholder.jpg";
 
+        $detalle = explode("///",$producto[0]->getDetalle());
+        $precio = $detalle[0];
+        $detalles = $detalle[1];
+        
+
         $boton = ($iniciada) ?
-            '<button class="btn btn-primary col-12 my-2" type="submit" id="btn-submit">Agregar al Carrito</button>' :
+            '<button class="btn btn-primary col-12 my-2" type="submit" id="btn-submit2">Agregar al Carrito</button>' :
             '<button class="btn btn-primary col-12 my-2" data-bs-toggle="modal" href="#inicioSesion" role="button" aria-controls="modal">Agregar al Carrito</button>';
 
         echo '<div class="col-12 rounded">
@@ -55,10 +65,10 @@ foreach ($destacados as $productoKey) {
 
             <div class="col-12 col-md-6 p-5 d-flex align-items-center justify-content-center">
 
-                <form method="POST" id="form-abm">
+                <form method="POST" id="form-abm2">
                     <div class="col-12 bg-light p-5 rounded" >
                         <h5 class="fw-bold">' . $producto[0]->getNombre() . '</h5>
-                        <h3 class="my-4">$<span id="precio">20000</span></h3>
+                        <h3 class="my-4">$<span id="precio">'.$precio.'</span></h3>
                         <div class="row col-12 mb-2">
                             <input type="text" id="idproducto" name="idproducto" value="'. $producto[0]->getId() .'" hidden>
                             <div class="col-6 d-flex align-items-center justify-content-center">
@@ -84,7 +94,7 @@ foreach ($destacados as $productoKey) {
 
             <div class="col-12 rounded bg-light p-5 mb-5">
                 <h4>Detalles del Producto</h4>
-                ' . $producto[0]->getDetalle() . '
+                ' . $detalles . '
             </div>
         </div>
     </div>';

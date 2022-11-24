@@ -19,6 +19,7 @@ include_once "../Estructura/headerSeguro.php";
         <thead class="bg-dark text-light">
             <th field="producto">Producto</th>
             <th field="cantidad">Cantidad</th>
+            <th field="precio">Precio</th>
             <th field="accion">Acciones</th>
         </thead>
         <tbody>

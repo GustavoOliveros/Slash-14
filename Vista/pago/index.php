@@ -7,6 +7,8 @@ $objControl = new AbmCompra();
 $param["idusuario"] = $_SESSION["idusuario"];
 $compras = $objControl->retornarCarrito($param);
 
+$total = 0;
+
 if(isset($compras)){
     $param["id"] = $compras->getId();
     $list = $objControl->buscarItems($param);
@@ -18,10 +20,16 @@ $combo =  "";
 
 if (isset($list) && count($list) > 0) {
   foreach ($list as $elem) {
+    $detalle = explode("///",$elem->getObjProducto()->getDetalle());
+    $precio = $detalle[0] * $elem->getCantidad();
+    $total += $precio;
+
     $combo .= '<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
         ' .  mb_strimwidth($elem->getObjProducto()->getNombre(), 0, 20, "...") . 'x ' . $elem->getCantidad() . '
-        <span>$10,000</span>
+        <span>$'.$precio.'</span>
       </li>';
+
+    $precio .= '';
   }
 
   echo '<!-- Credit card form -->
@@ -126,7 +134,7 @@ if (isset($list) && count($list) > 0) {
                       <p class="mb-0">(con IVA)</p>
                     </strong>
                   </div>
-                  <span><strong>$10,000</strong></span>
+                  <span><strong>$'.$total.'</strong></span>
                 </li>
               </ul>
             </div>

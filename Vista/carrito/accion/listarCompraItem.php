@@ -22,7 +22,14 @@ if(isset($list) && count($list) > 0){
         $nuevoElem["id"] = $elem->getId();
         $nuevoElem["producto"]=$elem->getObjProducto()->getNombre();
         $nuevoElem["cantidad"]=$elem->getCantidad();
-        
+
+        $detalle = $elem->getObjProducto()->getDetalle();
+        $detalle = explode("///",$detalle);
+
+        $precio = $detalle[0];
+
+        $nuevoElem["precio"] = $precio * $nuevoElem["cantidad"];
+
         $nuevoElem["accion"] =
             '<button class="btn btn-warning" id="edit-' . $elem->getId() . '" onclick="editMenu();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
