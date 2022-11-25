@@ -6,7 +6,7 @@ $objControl = new AbmCompra();
 
 $session = new Session();
 
-$param["idusuario"] = $_SESSION["idusuario"];
+$param["idusuario"] = $session->getUsuario()->getId();
 $list = $objControl->buscar($param);
 
 $arreglo_salida =  array();

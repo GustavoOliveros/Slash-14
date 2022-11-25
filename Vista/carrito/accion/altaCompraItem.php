@@ -11,7 +11,7 @@ $respuesta = false;
 
 // Recibo idusuario, idproducto y cantidad
 $param = data_submitted();
-$param["idusuario"] = $_SESSION["idusuario"];
+$param["idusuario"] = $session->getUsuario()->getId();
 $producto = $objProducto->buscar(["id" => $param["idproducto"]]);
 
 // Busqueda de carrito

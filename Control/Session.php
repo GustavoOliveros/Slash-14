@@ -68,7 +68,7 @@ class Session{
         $objResultado = null;
 
         $abmUsuario = new AbmUsuario();
-        $where = ["nombre" => $_SESSION["nombreUsuario"]];
+        $where = ["id" => $_SESSION["idusuario"]];
         $arreglo = $abmUsuario->buscar($where);
 
         $objResultado = $arreglo[0];

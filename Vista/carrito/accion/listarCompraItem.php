@@ -6,7 +6,7 @@ $objControl = new AbmCompra();
 
 $session = new Session();
 
-$param["idusuario"] = $_SESSION["idusuario"];
+$param["idusuario"] = $session->getUsuario()->getId();
 $compras = $objControl->retornarCarrito($param);
 
 if(isset($compras)){

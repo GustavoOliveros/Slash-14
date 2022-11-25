@@ -4,7 +4,7 @@ include_once "../Estructura/headerSeguro.php";
 
 $objControl = new AbmCompra();
 
-$param["idusuario"] = $_SESSION["idusuario"];
+$param["idusuario"] = $session->getUsuario()->getId();
 $compras = $objControl->retornarCarrito($param);
 
 $total = 0;

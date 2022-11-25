@@ -63,7 +63,7 @@ $("#form-abm2").validate({
                     '<a href="../carrito/index.php">Ver en su carrito.</a><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     $("#exito").html(exito);
                 } else {
-                    $("#errores").html(mostrarError(result.errorMsg));
+                    $("#erroresA").html(mostrarError(result.errorMsg));
                 }
             },
         });

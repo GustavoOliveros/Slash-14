@@ -37,6 +37,8 @@ foreach ($destacados as $productoKey) {
 ?>
 <!-- Contenido -->
 <main class="col-12 my-3 mx-auto w-100 max">
+    <div id="exito"></div>
+    <div id="erroresA"></div>
     <?php
     if (!isset($producto)) {
         echo mostrarError('El producto no fue encontrado.<br>
@@ -55,8 +57,7 @@ foreach ($destacados as $productoKey) {
             '<button class="btn btn-primary col-12 my-2" data-bs-toggle="modal" href="#inicioSesion" role="button" aria-controls="modal">Agregar al Carrito</button>';
 
         echo '<div class="col-12 rounded">
-        <div id="exito"></div>
-        <div id="errores"></div>
+
         <div class="row col-12 p-3 rounded mx-auto">
 
             <div class="col-12 col-md-6 d-flex align-items-center justify-content-center flex-column p-5">

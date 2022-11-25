@@ -3,7 +3,7 @@ $titulo = "Perfil";
 include_once "../Estructura/headerSeguro.php";
 
 $objC = new AbmUsuario();
-$data["id"] = $_SESSION["idusuario"];
+$data["id"] = $session->getUsuario()->getId();
 
 $arreglo = $objC->buscar($data);
 

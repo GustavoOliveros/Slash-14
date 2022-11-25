@@ -1,13 +1,13 @@
 <?php
 
 $objC = new AbmUsuario();
-$arreglo = $objC->buscar(["id" => $_SESSION["idusuario"]]);
+$arreglo = $objC->buscar(["id" => $session->getUsuario()->getId()]);
 
 $objR = new AbmRol();
 $menu = "";
 
 // buscar roles del usuario
-$arregloRoles = $objC->buscarRoles(["id" => $_SESSION["idusuario"]]);
+$arregloRoles = $objC->buscarRoles(["id" => $session->getUsuario()->getId()]);
 
 // armar arreglo de opciones de menu
 $nuevo = array();
