@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2022 a las 16:40:47
+-- Tiempo de generación: 25-11-2022 a las 01:32:13
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -40,7 +40,21 @@ CREATE TABLE `compra` (
 INSERT INTO `compra` (`idcompra`, `cofecha`, `idusuario`) VALUES
 (1, '2022-11-17 23:49:23', 1),
 (2, '2022-11-18 12:13:19', 2),
-(3, '2022-11-18 12:14:38', 2);
+(3, '2022-11-18 12:14:38', 2),
+(4, '2022-11-24 11:19:07', 2),
+(5, '2022-11-24 12:08:13', 1),
+(6, '2022-11-24 12:40:40', 1),
+(7, '2022-11-24 12:51:20', 1),
+(8, '2022-11-24 12:52:24', 1),
+(9, '2022-11-24 12:56:01', 1),
+(10, '2022-11-24 13:43:15', 1),
+(11, '2022-11-24 13:52:03', 1),
+(12, '2022-11-24 18:04:39', 1),
+(13, '2022-11-24 18:35:36', 1),
+(14, '2022-11-24 19:39:22', 7),
+(15, '2022-11-24 20:45:35', 6),
+(16, '2022-11-25 00:26:48', 2),
+(17, '2022-11-25 00:27:21', 2);
 
 -- --------------------------------------------------------
 
@@ -65,10 +79,55 @@ INSERT INTO `compraestado` (`idcompraestado`, `idcompra`, `idcompraestadotipo`, 
 (2, 2, 2, '2022-11-18 12:13:19', '2022-11-18 15:22:42'),
 (3, 3, 1, '2022-11-18 12:14:38', '2022-11-18 14:12:17'),
 (6, 3, 2, '2022-11-18 14:12:17', '2022-11-18 15:21:01'),
-(7, 3, 5, '2022-11-18 15:21:02', '0000-00-00 00:00:00'),
+(7, 3, 5, '2022-11-18 15:21:02', '2022-11-19 19:42:36'),
 (8, 2, 5, '2022-11-18 15:22:42', '0000-00-00 00:00:00'),
 (9, 1, 2, '2022-11-18 15:33:43', '2022-11-18 15:34:08'),
-(10, 1, 5, '2022-11-18 15:34:08', '0000-00-00 00:00:00');
+(10, 1, 5, '2022-11-18 15:34:08', '2022-11-18 18:44:04'),
+(11, 1, 2, '2022-11-18 18:44:04', '2022-11-24 12:07:53'),
+(12, 3, 2, '2022-11-19 19:42:36', '2022-11-19 19:42:47'),
+(13, 3, 5, '2022-11-19 19:42:47', '0000-00-00 00:00:00'),
+(14, 4, 1, '2022-11-24 11:19:07', '2022-11-24 20:44:59'),
+(15, 1, 5, '2022-11-24 12:07:53', '0000-00-00 00:00:00'),
+(16, 5, 1, '2022-11-24 12:08:13', '2022-11-24 12:08:28'),
+(17, 5, 2, '2022-11-24 12:08:28', '2022-11-24 12:26:47'),
+(18, 5, 3, '2022-11-24 12:26:47', '2022-11-24 12:26:55'),
+(19, 5, 4, '2022-11-24 12:26:55', '2022-11-24 12:27:05'),
+(20, 5, 5, '2022-11-24 12:27:05', '0000-00-00 00:00:00'),
+(21, 6, 1, '2022-11-24 12:40:40', '2022-11-24 12:48:39'),
+(22, 6, 2, '2022-11-24 12:48:39', '2022-11-24 12:48:58'),
+(23, 6, 2, '2022-11-24 12:48:58', '2022-11-24 12:50:18'),
+(24, 6, 2, '2022-11-24 12:50:18', '2022-11-24 12:53:25'),
+(25, 7, 1, '2022-11-24 12:51:20', '2022-11-24 12:51:43'),
+(26, 7, 2, '2022-11-24 12:51:43', '2022-11-24 12:53:29'),
+(27, 8, 1, '2022-11-24 12:52:24', '2022-11-24 12:53:05'),
+(28, 8, 2, '2022-11-24 12:53:05', '2022-11-24 12:57:29'),
+(29, 6, 5, '2022-11-24 12:53:25', '0000-00-00 00:00:00'),
+(30, 7, 5, '2022-11-24 12:53:29', '0000-00-00 00:00:00'),
+(31, 9, 1, '2022-11-24 12:56:01', '2022-11-24 12:56:44'),
+(32, 9, 2, '2022-11-24 12:56:44', '2022-11-24 12:58:13'),
+(33, 8, 5, '2022-11-24 12:57:29', '0000-00-00 00:00:00'),
+(34, 9, 5, '2022-11-24 12:58:13', '0000-00-00 00:00:00'),
+(35, 10, 1, '2022-11-24 13:43:15', '2022-11-24 13:43:42'),
+(36, 10, 2, '2022-11-24 13:43:42', '2022-11-24 13:43:50'),
+(37, 10, 3, '2022-11-24 13:43:50', '2022-11-24 13:43:55'),
+(38, 10, 5, '2022-11-24 13:43:55', '0000-00-00 00:00:00'),
+(39, 11, 1, '2022-11-24 13:52:03', '2022-11-24 13:52:38'),
+(40, 11, 2, '2022-11-24 13:52:38', '2022-11-24 15:17:01'),
+(41, 11, 3, '2022-11-24 15:17:01', '2022-11-24 18:33:51'),
+(42, 12, 1, '2022-11-24 18:04:39', '2022-11-24 18:20:16'),
+(43, 12, 2, '2022-11-24 18:20:16', '2022-11-24 18:20:32'),
+(44, 12, 5, '2022-11-24 18:20:33', '0000-00-00 00:00:00'),
+(45, 11, 4, '2022-11-24 18:33:51', '0000-00-00 00:00:00'),
+(46, 13, 1, '2022-11-24 18:35:36', '0000-00-00 00:00:00'),
+(47, 14, 1, '2022-11-24 19:39:22', '0000-00-00 00:00:00'),
+(48, 4, 2, '2022-11-24 20:44:59', '2022-11-24 20:47:20'),
+(49, 15, 1, '2022-11-24 20:45:35', '0000-00-00 00:00:00'),
+(50, 4, 5, '2022-11-24 20:47:20', '0000-00-00 00:00:00'),
+(51, 16, 1, '2022-11-25 00:26:48', '2022-11-25 00:27:04'),
+(52, 16, 2, '2022-11-25 00:27:04', '2022-11-25 00:27:49'),
+(53, 17, 1, '2022-11-25 00:27:21', '0000-00-00 00:00:00'),
+(54, 16, 3, '2022-11-25 00:27:49', '2022-11-25 00:27:54'),
+(55, 16, 4, '2022-11-25 00:27:54', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -111,11 +170,29 @@ CREATE TABLE `compraitem` (
 --
 
 INSERT INTO `compraitem` (`idcompraitem`, `idproducto`, `idcompra`, `cicantidad`) VALUES
-(2, 4, 1, 13),
+(2, 4, 1, 16),
 (3, 5, 1, 23),
 (4, 6, 1, 3),
 (5, 3, 2, 5),
-(6, 3, 3, 10);
+(9, 2, 3, 3),
+(10, 5, 3, 10),
+(13, 3, 5, 10),
+(14, 2, 6, 1),
+(15, 1, 7, 10),
+(16, 3, 8, 40),
+(17, 2, 9, 10),
+(18, 4, 9, 5),
+(19, 6, 9, 5),
+(20, 2, 10, 10),
+(21, 6, 11, 12),
+(22, 1, 12, 10),
+(23, 3, 12, 10),
+(24, 5, 12, 10),
+(27, 6, 14, 203),
+(29, 2, 13, 1),
+(30, 2, 4, 20),
+(31, 3, 16, 10),
+(32, 3, 17, 1);
 
 -- --------------------------------------------------------
 
@@ -200,12 +277,13 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idproducto`, `pronombre`, `prodetalle`, `procantstock`) VALUES
-(1, 'Mouse de juego Soul', 'Para trabajar desde casa con la computadora o aprovechar los momentos de ocio, necesitás comodidad y facilidad de movimiento.', 100),
-(2, 'Mouse de juego inalámbrico recargable Soul Master Player XM 1000 negro', 'Para trabajar desde casa con la computadora o aprovechar los momentos de ocio, necesitás comodidad y facilidad de movimiento. Con tu Soul XM 1000 encontrá eso que buscás en un solo aparato con la mejor tecnología.', 20),
-(3, 'Pc Armada Gamer Amd Ryzen 5 4600g 16gb Nvme 240 Radeon Vega', 'INCLUYE:<br>\r\n*Gabinete + Fuente 500w Teclado + Mouse + Parlante<br>\r\n*Microprocesador AMD Ryzen 5 4600G 8MB 3.7GHz AM4<br>\r\n*Memoria Ddr4 8Gb x 2<br>\r\n*Disco Solido Ssd 240 Gb<br>\r\n*Mother A320M Socket AM4<br>\r\n*Sistema Opperativo: Windows 10 Prueba x 30 Dias<br>', 50),
-(4, 'Monitor 22 Pulgadas Daewoo Led 1080p Full Hd Hdmi Vga', 'Especificaciones:<br>\r\n- Marca : Daewoo<br>\r\n- Color : Negro<br>\r\n- Tamaño de panel : 22\"<br>\r\n- Curvo/Plano : Plano<br>\r\n- Colores : 16.7M<br>\r\n- Tipo de panel : TN<br>\r\n- Resolución : 1920 x 1080<br>\r\n- Brillo(Max) : 230 cd/m2<br>\r\n- Parlantes : No<br>\r\n- Conectividad : 1 x HDMI, 1 x VGA<br>\r\n- Frecuencia de actualizacion : 60 Hz', 30),
-(5, 'Sillon Gamer Pc Reclinable Ergonomica Postural Giratoria', 'Es gamer: Sí<br>\r\nEs ergonómica: Sí<br>\r\nCon altura regulable: Sí<br>\r\nEs giratoria: Sí<br>\r\nCon respaldo reclinable: Sí<br>\r\nCon apoyabrazos: Sí<br>\r\nCon ruedas: Sí<br>', 100),
-(6, 'Teclado gamer T-Dagger Bora T-TGK315 QWERTY T-Dagger Red español color blanco con luz RGB', 'Este teclado T-Dagger de alto rendimiento permite que puedas disfrutar de horas ilimitadas de juegos. Está diseñado especialmente para que puedas expresar tanto tus habilidades como tu estilo. Podrás mejorar tu experiencia de gaming, ya seas un aficionado o todo un experto y hacer que tus jugadas alcancen otro nivel.', 300);
+(1, 'Mouse Delux, Negro/vertical/inalambrico/12400 Dpi/1000hz', '1000///Marca<br>\r\nDelux<br>\r\nModelo<br>\r\nDELUX-M618PR-BLACK', 0),
+(2, 'Mouse de juego inalámbrico recargable Soul Master Player XM 1000 negro', '20000///Para trabajar desde casa con la computadora o aprovechar los momentos de ocio, necesitás comodidad y facilidad de movimiento. Con tu Soul XM 1000 encontrá eso que buscás en un solo aparato con la mejor tecnología.', 20),
+(3, 'Pc Armada Gamer Amd Ryzen 5 4600g 16gb Nvme 240 Radeaon Vega.', '100000///INCLUYE:<br>\n*Gabinete + Fuente 500w Teclado + Mouse + Parlante<br>\n*Microprocesador AMD Ryzen 5 4600G 8MB 3.7GHz AM4<br>\n*Memoria Ddr4 8Gb x 2<br>\n*Disco Solido Ssd 240 Gb<br>\n*Mother A320M Socket AM4<br>\n*Sistema Opperativo: Windows 10 Prueba x 30 Dias<br>', 40),
+(4, 'Monitor 22 Pulgadas Daewoo Led 1080p Full Hd Hdmi Vga', '10243///Especificaciones:<br>\n- Marca : Daewoo<br>\n- Color : Negro<br>\n- Tamaño de panel : 22\"<br>\n- Curvo/Plano : Plano<br>\n- Colores : 16.7M<br>\n- Tipo de panel : TN<br>\n- Resolución : 1920 x 1080<br>\n- Brillo(Max) : 230 cd/m2<br>\n- Parlantes : No<br>\n- Conectividad : 1 x HDMI, 1 x VGA<br>\n- Frecuencia de actualizacion : 60 Hz', 30),
+(5, 'Sillon Gamer Pc Reclinable Ergonomica Postural Giratoria', '10250///Es gamer: Sí<br>\nEs ergonómica: Sí<br>\nCon altura regulable: Sí<br>\nEs giratoria: Sí<br>\nCon respaldo reclinable: Sí<br>\nCon apoyabrazos: Sí<br>\nCon ruedas: Sí<br>', 100),
+(6, 'Teclado gamer T-Dagger Bora T-TGK315 QWERTY T-Dagger Red español color blanco con luz RGB.', '200000///Este teclado T-Dagger de alto rendimiento permite que puedas disfrutar de horas ilimitadas de juegos. Está diseñado especialmente para que puedas expresar tanto tus habilidades como tu estilo. Podrás mejorar tu experiencia de gaming, ya seas un aficionado o todo un experto y hacer que tus jugadas alcancen otro nivel.', 287),
+(7, 'Laptop gamer Legion 5 6ta Gen (15.6\", AMD)', '500000///<b>Rendimiento gamer definitivo. Autonomía de la batería excepcional.</b>\r\nDicen que nos pasamos la vida haciendo concesiones. Dicen que no se puede tener un gran rendimiento y una batería que dure mucho en la misma computadora. Cuentan que una laptop para gaming enfocada al gran rendimiento tiene que ser grande y pesada. Se equivocan. Ya puedes disfrutar de un rendimiento para gaming de elite en una laptop delgada y liviana con una duración de la batería increíble.', 20);
 
 -- --------------------------------------------------------
 
@@ -246,10 +324,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idusuario`, `usnombre`, `uspass`, `usmail`, `usdeshabilitado`) VALUES
-(1, 'root', '85df15fe22809f41007697ac39cce710', 'root@mail.com', '0000-00-00 00:00:00'), -- Clave2022
-(2, 'Gustavo', '85df15fe22809f41007697ac39cce710', 'gusa05@gmail.com', '0000-00-00 00:00:00'), -- Clave2022
-(3, 'Empleado', '85df15fe22809f41007697ac39cce710', 'empleado@empleado.com', '0000-00-00 00:00:00'), -- Clave2022
-(4, 'Test', 'fc03ac0b2d51c8a17769953c245ef1e0', 'test@test.com', '2022-11-16 22:09:49');
+(1, 'root', '85df15fe22809f41007697ac39cce710', 'root@mail.com', '0000-00-00 00:00:00'),
+(2, 'Gustavo', '85df15fe22809f41007697ac39cce710', 'gusa05@gmail.com', '0000-00-00 00:00:00'),
+(3, 'Empleado', '85df15fe22809f41007697ac39cce710', 'empleado@empleado.com', '0000-00-00 00:00:00'),
+(4, 'Test', 'fc03ac0b2d51c8a17769953c245ef1e0', 'test@test.com', '2022-11-16 22:09:49'),
+(6, 'Jose', 'c9c540c6a2266a1fb8b6f5c2500c1342', 'deimoss2018@gmail.com', '0000-00-00 00:00:00'),
+(7, 'Gonza', '85df15fe22809f41007697ac39cce710', 'gonza@mail.com', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -272,7 +352,9 @@ INSERT INTO `usuariorol` (`idusuario`, `idrol`) VALUES
 (1, 3),
 (2, 3),
 (3, 2),
-(4, 3);
+(4, 3),
+(6, 3),
+(7, 3);
 
 --
 -- Índices para tablas volcadas
@@ -362,19 +444,19 @@ ALTER TABLE `usuariorol`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idcompra` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `compraestado`
 --
 ALTER TABLE `compraestado`
-  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idcompraestado` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `compraitem`
 --
 ALTER TABLE `compraitem`
-  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idcompraitem` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `menu`
@@ -386,7 +468,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -398,7 +480,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idusuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
